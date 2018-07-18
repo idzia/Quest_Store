@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+</head>
+<body>
+<div class="form-container">
+    <img src="../static/img/user.jpg" title="user" class="user-image">
+    <img src="../static/img/codecool_logo.png" title="user" class="logo">
+    <div class="greeting">
+        <h2>Welcome to queststore!</h2>
+    </div>
+    <form action="#" onkeyup="validate();" onsubmit="return validateUser();" class="inputs-container">
+
+        <div class="input">
+            <input type="text" class="input" id="login" name="username" placeholder="Your login" required>
+            <p id="err-login-fn"></p>
+        </div>
+        <div class="input">
+            <input type="password" class="input" id="pass" name="password" placeholder="Your password" required>
+            <p id="err-pass-fn"></p>
+        </div>
+        <input type="submit" class="login-button" id="login-button" name="submit" value="Sign in" >
+    </form>
+
+
+
+
+
+</div>
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>

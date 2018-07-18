@@ -1,0 +1,402 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+html {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    background: url('../../static/img/background-blue.jpg');
+}
+body {
+    align-self: center;
+    color: white;
+}
+body * {
+    box-sizing: border-box;
+}
+.content {
+    display:flex;
+    width: 90%;
+    height: 100%;
+    flex-direction: column;
+    background-color: rgba(24, 33, 52, 0.7);
+    margin: 5vw;
+    border-top: 4px solid #3ADBFD;
+    border-radius: 80px 0 5px 5px;
+    min-width: max-content;
+    padding: 0 10px 10px 0;
+}
+header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-self: center;
+    justify-content: space-between;
+    align-items: center;
+}
+#user img {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.info {
+    width: 75%;
+    height: 160px;
+    padding:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 150px;
+}
+.info-center {
+    align-self: center;
+    margin-top:-20px;
+}
+.info-top {
+    margin-top:25px;
+    align-self: flex-start;
+}
+.info h1 {
+    font-size: 50px;
+}
+.info img {
+    width: 50px;
+    height: 50px;
+}
+.bar-content-block {
+    display: flex;
+    flex-direction: row;
+}
+.bar {
+    width: 25%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-transform: uppercase;
+}
+.menu {
+    padding: 35px 5px;
+}
+.menu-item {
+    margin-bottom:30px;
+}
+.menu-item a {
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    width: 150px;
+    height: 30px;
+    align-items: center;
+    padding: 5px;
+}
+.menu-item a.selected {
+    background-color: #e42e53;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    box-sizing: border-box;
+    width: 150px;
+    height: 40px;
+    margin-left: -5px;
+    border-radius: 0 5px 5px 0;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+}
+.content-block h1 {
+    font-size: 36px;
+}
+.content-block {
+    width: 75%;
+    display:flex;
+    flex-direction:column;
+    align-items: flex-start;
+}
+ul.breadcrumb {
+    padding: 15px 5px;
+    list-style: none;
+    color:  #ddd;
+}
+ul.breadcrumb li {
+    display: inline;
+}
+ul.breadcrumb li:nth-child(n+2):before {
+    padding: 15px 5px;
+    color:  #ddd;
+    content: "/\00a0";
+}
+ul.breadcrumb li a {
+    color:  #ddd;
+    text-decoration: none;
+}
+.show-mentors {
+    border-collapse: collapse;
+    min-width: fit-content;
+}
+.show-mentors td,
+.show-mentors th {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.left {
+    text-align: left;
+}
+.show-mentors tr:nth-child(even){
+    background-color: #f2f2f2;
+    color: #2c536c;
+}
+.show-mentors th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #117ca0;
+    color: white;
+}
+.show-mentors td a {
+    text-decoration: none;
+    color: white;
+    background-color: #e42e53;
+    padding: 5px;
+    border-radius: 3px;
+}
+.show-mentors td a:hover {
+    background-color: #117ca0;
+}
+
+.save-changes-button {
+    padding: 20px;
+    align-self: center;
+}
+.save-changes-button input {
+    padding: 10px 25px;
+    background-color: #e42e53;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.save-changes-button input:hover {
+    background-color: #117ca0;
+}
+
+/*-------------------New styles for Save changes button as div------------------------*/
+.save-changes-button a {
+    padding: 10px 25px;
+    background-color: #e42e53;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.save-changes-button a:hover {
+    background-color: #117ca0;
+}
+
+    /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.mark{
+    min-width: 25%;
+}
+.accept-button {
+    background-color: #e42e53;
+    border:none;
+    color:white;
+    border-radius: 10%;
+}
+.accept-button:hover {
+     background-color:#000000;
+}
+button:disabled {
+    background-color: grey;
+    color: rgb(214, 212, 212);
+    cursor: auto;
+}
+.describe_item li {
+    display: inline-block;
+    font-size: 45px;
+}
+/*---------------Styles for form create student----------------*/
+.col-25 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
+}
+#subject {
+    height: 200px;
+}
+#name, #surname, #email, #phone, #description,
+#class, #coins, #level, #magic, #standard {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 3px;
+    resize: vertical;
+}
+#description {
+    height: 200px;
+}
+.input-form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-content: center;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#save-changes-button {
+    background-color: #E42E53;
+    color: white;
+    padding: 12px 20px;
+    cursor: pointer;
+    border: 0;
+    box-shadow: none;
+    border-radius: 3px;
+}
+#save-changes-button:active {
+    top: 1px;
+}
+
+#save-changes-button:hover {
+    background-color: #117ca0;
+    color: black;
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgba(24, 33, 52, 0.7);
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    justify-content: space-between;
+}
+footer a,
+footer p {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+}
+/*============ Styles for the modal window=============*/
+.modal-window {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 200px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: rgba(24, 33, 52, 0.9);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    height: 150px;
+}
+.modal-content p {
+    font-size: 3vw;
+    color: white;
+    text-align: center;
+    margin: 30px;
+}
+.show-modal {
+    display: block;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+/* The Close Button of modal window */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

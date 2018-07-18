@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Homepage</title>
+    <link rel="stylesheet" href="../../static/css/user_styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="content">
+    <header>
+        <div id="user">
+            <img src="../../static/img/user2.png" alt="avatar" >
+        </div>
+        <div class="info">
+            <div class="info-center">
+                <h1>Hello Ania</h1>
+            </div>
+            <div class="info-top">
+                <ul class="describe_item">
+                    <li><p id="money">{{money}}</p></li>
+                    <li><img src="../../static/img/coin.png" alt="coin"></li>
+                    <li><p id="experience">{{totalmoney}}</p></li>
+                    <li><img src="../../static/img/progress.png" alt="progress"></li>
+                    <li><a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="bar-content-block">
+        <div class="bar">
+            <ul class="menu">
+                <li class="menu-item"><a href="student/codecooler/{{student.getId}}" class="selected">Inventory</a></li>
+                <li class="menu-item"><a href="student/store">Store</a></li>
+                <li class="menu-item"><a href="student/incubator">Incubator</a></li>
+                <li class="menu-item"><a href="student/quests">Quests</a></li>
+                <li class="menu-item"><a href="student/transactionhistory/{{student.getId}}">Transaction</a></li>
+            </ul>
+        </div>
+        <div class="content-block">
+            <h1>Your artifacts</h1>
+            <table class="show-mentors">
+                <thead>
+                <tr>
+                    <th>Artifact</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Is group</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                {% for artifact in ArtifactList %}   
+                <tr>
+                    <td>{{artifact.getName}}</td>
+                    <td>{{artifact.getDescription}}</td>
+                    <td>{{artifact.getQuantity}}</td>
+                    <td>{{artifact.getCategory}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer>
+    <a href='https://www.freepik.com/free-vector/assorted-user-avatars-collection_851876.htm'>Designed by Freepik</a>
+    <p>MADD crew Production</p>
+</footer>
+</body>
+</html>
