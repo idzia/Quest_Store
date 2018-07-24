@@ -1,0 +1,13 @@
+-- current_money, total_money, student artifact --
+
+SELECT student.current_money, student.total_money, 
+	student_artifact.quantity, 
+	artifact.artifact_name, artifact.description, artifact.category
+FROM student
+JOIN student_artifact
+ON student_artifact.id_student = student.id_student 
+JOIN artifact 
+On artifact.id_artifact = student_artifact.id_artifact
+WHERE student.id_student = 1
+
+--artifacts which were used--
