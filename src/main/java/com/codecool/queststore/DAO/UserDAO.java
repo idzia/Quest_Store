@@ -49,8 +49,9 @@ public class UserDAO {
                     case "student":
                         loggedUser = getStudentByUserId(userId);
                 }
-
             }
+            stmt.close();
+
 
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -83,6 +84,7 @@ public class UserDAO {
                 loggedStudent = new Student(loggedUserId, userFirstName, userLastName,
                         userPhone, userEmail, userRole, studentId, currentMoney, totalMoney);
             }
+            stmt.close();
 
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -113,6 +115,7 @@ public class UserDAO {
                 loggedMentor = new Mentor(loggedUserId, userFirstName, userLastName,
                         userPhone, userEmail, userRole, mentorId);
             }
+            stmt.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -142,11 +145,51 @@ public class UserDAO {
                 loggedAdmin = new Admin(loggedUserId, userFirstName, userLastName,
                         userPhone, userEmail, userRole, adminId);
             }
+            stmt.close();
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         return loggedAdmin;
+    }
+
+    public void addNewStudent(String userFirstName, String userLastName, String userPhone,
+                               String userEmail, String userRole) {
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO app_user (first_name, last_name, phone, email, role) VALUES(?,?,?,?,?) RETURNING id_user");
+
+            stmt.setString(1, userFirstName);
+            stmt.setString(2, userLastName);
+            stmt.setString(3, userPhone);
+            stmt.setString(4, userEmail);
+            stmt.setString(5, userRole);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                Integer userId = resultSet.getInt("id_user");
+                System.out.println(userId);
+            }
+
+
+//            stmt.setInt(6, userId);
+//            stmt.setString(7, userLogin);
+//            stmt.setString(8, userPassword);
+//
+//            stmt.setString(9, userClass);
+//
+//
+//
+//            stmt.executeQuery();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+//        return loggedAdmin;
     }
 
 }

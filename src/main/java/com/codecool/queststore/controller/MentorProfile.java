@@ -1,5 +1,6 @@
 package com.codecool.queststore.controller;
 
+//import com.codecool.queststore.DAO.UserDAO;
 import com.codecool.queststore.model.Mentor;
 import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,30 +17,37 @@ public class MentorProfile implements HttpHandler {
 
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
+//        String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
         String response;
-
-        HttpCookie cookie = null;
+//
+//        HttpCookie cookie = null;
         Mentor loggedUser;
-
-        if (cookieStr != null) {
-
-            List<HttpCookie> cookieList = HttpCookie.parse(cookieStr);
-            for (HttpCookie c : cookieList) {
-                if ( c.getName().equals("sessionId")) {
-                    cookie = c;
-                }
-            }
-        } else httpRedirectTo("/login", httpExchange);
+//
+//        if (cookieStr != null) {
+//
+//            List<HttpCookie> cookieList = HttpCookie.parse(cookieStr);
+//            for (HttpCookie c : cookieList) {
+//                if ( c.getName().equals("sessionId")) {
+//                    cookie = c;
+//                }
+//            }
+//        } else httpRedirectTo("/login", httpExchange);
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
         JtwigModel model = JtwigModel.newModel();
+        Session.guard(httpExchange);
 
-        if (cookie != null) {
-            loggedUser = (Mentor) Session.data.get(cookie.getValue());
+        loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
+        model.with("userName", loggedUser.getFirstName());
 
-            model.with("userName", loggedUser.getFirstName());
-        }
+//        if (cookie != null) {
+//            loggedUser = (Mentor) Session.data.get(cookie.getValue());
+//
+//            model.with("userName", loggedUser.getFirstName());
+////            UserDAO userDao = new UserDAO();
+////            userDao.addNewStudent("firstName", "lastName", "333",
+////                    "asd@asd.pl", "admin");
+//        }
 
         response = template.render(model);
 
