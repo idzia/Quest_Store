@@ -50,7 +50,7 @@ table {
 html {
     font-family: 'Nunito', sans-serif;
     font-size: 14px;
-    background: url('../../static/img/background-blue.jpg');
+
 }
 body {
     align-self: center;
@@ -66,7 +66,7 @@ body * {
     flex-direction: column;
     background-color: rgba(24, 33, 52, 0.7);
     margin: 5vw;
-    border-top: 4px solid #3ADBFD;
+    border-top: 4px solid #73aed2;
     border-radius: 80px 0 5px 5px;
     min-width: max-content;
     padding: 0 10px 10px 0;
@@ -81,6 +81,8 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
+
 #user img {
     position: absolute;
     top: -20px;
@@ -107,6 +109,15 @@ header {
     margin-top:25px;
     align-self: flex-start;
 }
+
+p#money {
+font-size: 30px;
+}
+
+p#experience {
+font-size: 30px;
+}
+
 .info h1 {
     font-size: 50px;
 }
@@ -188,7 +199,7 @@ ul.breadcrumb li a {
 }
 .show-mentors td,
 .show-mentors th {
-    text-align: center;
+    text-align: left;
     border: 1px solid #ddd;
     padding: 8px;
 }
@@ -197,8 +208,8 @@ ul.breadcrumb li a {
     text-align: left;
 }
 .show-mentors tr:nth-child(even){
-    background-color: #f2f2f2;
-    color: #2c536c;
+    background-color: #e2e3e7;
+    color: #153656;
 }
 .show-mentors th {
     padding-top: 12px;

@@ -14,8 +14,7 @@ import java.io.OutputStream;
 import java.net.HttpCookie;
 import java.util.List;
 
-public class StudentProfile implements HttpHandler {
-
+public class StudentStore implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
 
         String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
@@ -23,7 +22,7 @@ public class StudentProfile implements HttpHandler {
 
         HttpCookie cookie = null;
         Student loggedUser;
-        List<Artifact> studentInventory = null;
+        List<Artifact> storeInventory = null;
 
         if (cookieStr != null) {
 
@@ -35,16 +34,16 @@ public class StudentProfile implements HttpHandler {
             }
         } else httpRedirectTo("/login", httpExchange);
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/codecooler.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
         if (cookie != null) {
-            loggedUser = (Student)Session.data.get(cookie.getValue());
+            loggedUser = (Student) Session.data.get(cookie.getValue());
 
             InventoryDAO inventoryDAO = new InventoryDAO();
-            studentInventory = inventoryDAO.getStudentInventory(loggedUser.getStudentId());
+            storeInventory = inventoryDAO.getStoreInventory(loggedUser.getStudentId());
 
-            model.with("studentInventory", studentInventory);
+            model.with("storeInventory", storeInventory);
             model.with("userName", loggedUser.getFirstName());
             model.with("currentMoney", loggedUser.getCurrentMoney());
             model.with("totalMoney", loggedUser.getTotalMoney());
