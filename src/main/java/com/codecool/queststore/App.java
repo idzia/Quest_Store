@@ -17,6 +17,7 @@ public class App {
         server.createContext("/transaction_history", new StudentHistory());
         server.createContext("/incubator", new StudentIncubator());
         server.createContext("/mentor", new MentorProfile());
+//        server.createContext("/mentor", new MentorProfile());
         server.createContext("/admin", new AdminProfile());
         server.createContext("/static", new Static());
         server.createContext("/logout", new Logout());

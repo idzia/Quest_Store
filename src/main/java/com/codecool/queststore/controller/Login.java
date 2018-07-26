@@ -32,13 +32,13 @@ public class Login implements HttpHandler {
         String method = httpExchange.getRequestMethod();
         String response="";
         boolean error = false;
-
         if (method.equals("GET")) {
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
             JtwigModel model = JtwigModel.newModel();
 //            model.with("counter", counter);
 //            model.with("isNewSession", isNewSession);
 //            model.with("sessionId", cookie.getValue());
+//            model.with("twigPath", Session.getTwigPath());
             response = template.render(model);
         }
 

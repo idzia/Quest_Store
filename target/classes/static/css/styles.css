@@ -45,7 +45,6 @@ q:before, q:after {
 
 body {
     font-family: 'Nunito', sans-serif;
-
     display: flex;
     justify-content: center;
 }
