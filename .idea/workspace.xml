@@ -2,6 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11420a62-b80c-4e20-9f53-93faafe52522" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/DAO/InventoryDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/controller/StudentHistory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/controller/StudentIncubator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/controller/StudentStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/model/Artifact.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/codecool/queststore/DAO/InventoryDAO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/codecool/queststore/controller/StudentHistory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/codecool/queststore/controller/StudentStore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/codecool/queststore/model/Artifact.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/controller/StudentProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/queststore/controller/StudentProfile.java" afterDir="false" />
@@ -80,7 +89,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/queststore/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="342">
               <caret line="17" column="63" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -222,38 +231,6 @@
               <item name="queststore" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MADD_2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MADD_2.0" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MADD_2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MADD_2.0" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MADD_2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MADD_2.0" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MADD_2.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MADD_2.0" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -263,7 +240,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1532616578296" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1532617287007" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../LoginForm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -347,7 +324,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="234" y="32" width="1853" height="1168" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.85368955" visible="true" weight="0.2763819" />
       <window_info id="Structure" order="1" sideWeight="0.14631043" side_tool="true" visible="true" weight="0.2763819" />
@@ -655,7 +631,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/queststore/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="342">
           <caret line="17" column="63" selection-start-line="17" selection-start-column="63" selection-end-line="17" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
