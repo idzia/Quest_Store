@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Homepage</title>
+    <link rel="stylesheet" href="../../static/css/admin_styles.css">
+    <link rel="stylesheet" href="../../static/css/styles.css">
+    <link rel="stylesheet" href="../../static/css/user_styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+</head>
+
+<body>
+<div class="content">
+    <header>
+        <div id="user">
+            <a href="mentor"><img src="../../static/img/user.jpg" alt="avatar" ></a>
+        </div>
+
+        <div class="info">
+            <div class="info-center">
+                <h1>WELCOME ADMIN!</h1>
+            </div>
+            <div class="info-top">
+                <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="bar-content-block">
+        <div class="bar">
+            <ul class="menu">
+                <li class="menu-item"><a href="mentor">Mentor</a></li>
+                <li class="menu-item"><a href="mentor/class">Class</a></li>
+                <li class="menu-item"><a href="mentor/level" class="selected">Level</a></li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <h1>Levels</h1>
+            <table class="show-mentors">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Experience</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for level in levelList %}
+                <tr>
+                    <td>{{level.getName}}</td>
+                    <td>{{level.getLevelMoney}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <form>
+                <input class="add-level-button" onclick="window.location.href='addNewLevel.html'" type="button" value="Add">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<footer>
+    <a href='https://www.freepik.com/free-vector/assorted-user-avatars-collection_851876.htm'>Designed by Freepik</a>
+    <p>MADD crew Production</p>
+</footer>
+</body>
+</html>

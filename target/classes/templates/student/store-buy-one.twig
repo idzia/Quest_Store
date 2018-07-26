@@ -5,9 +5,12 @@
     <title>Student Homepage</title>
     <link rel="stylesheet" href="../../static/css/user_styles.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="../../static/js/store.js"></script>
+
 </head>
 <body>
+        
 <div class="content">
     <header>
         <div id="user">
@@ -15,15 +18,15 @@
         </div>
         <div class="info">
             <div class="info-center">
-                <h1>Hello {{userName}}</h1>
+                <h1>Hello Ania</h1>
             </div>
             <div class="info-top">
                 <ul class="describe_item">
-                    <li><p id="money">{{currentmoney}}</p></li>
+                    <li><p id="money">{{money}}</p></li>
                     <li><img src="../../static/img/coin.png" alt="coin"></li>
                     <li><p id="experience">{{totalmoney}}</p></li>
                     <li><img src="../../static/img/progress.png" alt="progress"></li>
-                    <li><a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a></li>
+                    <li><a href="login"><img src="../../static/img/out.png" alt="logout"></a></li>
                 </ul>
             </div>
         </div>
@@ -31,36 +34,51 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="student/codecooler/" class="selected">Inventory</a></li>
-                <li class="menu-item"><a href="student/store">Store</a></li>
+                <li class="menu-item"><a href="student/codecooler/{{student.getId}}">Inventory</a></li>
+                <li class="menu-item"><a href="student/store" class="selected">Store</a></li>
                 <li class="menu-item"><a href="student/incubator">Incubator</a></li>
                 <li class="menu-item"><a href="student/quests">Quests</a></li>
                 <li class="menu-item"><a href="student/transactionhistory/{{student.getId}}">Transaction</a></li>
             </ul>
         </div>
         <div class="content-block">
-            <h1>Your artifacts</h1>
+            <ul class="breadcrumb">
+                    <li> <a href="student/store">Store</a></li>
+                    <li>Buying</li>
+            </ul>
+            <h1>You are trying to buy</h1>
             <table class="show-mentors">
                 <thead>
                 <tr>
                     <th>Artifact</th>
                     <th>Description</th>
-                    <th>Quantity</th>
+                    <th>Price</th>
                     <th>Is group</th>
-                    
+                    <th>How many</th>
+                    <th>To pay</th>
+                    <th></th>
+
                 </tr>
                 </thead>
                 <tbody>
-                {% for artifact in ArtifactList %}   
                 <tr>
                     <td>{{artifact.getName}}</td>
                     <td>{{artifact.getDescription}}</td>
-                    <td>{{artifact.getQuantity}}</td>
-                    <td>{{artifact.getCategory}}</td>
+                    <td><p id="price">{{artifact.getPrice}}</p></td>
+                    <td>&#9746;</td>
+                    <td>
+                        <input type="number" name="quantity" id="qS2" onclick="refresh2()" min="1" max="1" step="1" value="0">
+                    </td>
+                    <td>               
+                        <p id="topay2"></p>
+                    </td>
+                    <td>
+                        <button class="accept-button" type="submit" id="buy2" onclick=goBack() disabled>BUY</button>
+                    </td>
                 </tr>
-                {% endfor %}
                 </tbody>
             </table>
+           
         </div>
     </div>
 </div>

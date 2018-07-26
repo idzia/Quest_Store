@@ -5,7 +5,6 @@
     <title>Student Homepage</title>
     <link rel="stylesheet" href="../../static/css/user_styles.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="content">
@@ -15,15 +14,15 @@
         </div>
         <div class="info">
             <div class="info-center">
-                <h1>Hello {{userName}}</h1>
+                <h1>Hello Ania</h1>
             </div>
             <div class="info-top">
                 <ul class="describe_item">
-                    <li><p id="money">{{currentmoney}}</p></li>
+                    <li><p id="money">{{money}}</p></li>
                     <li><img src="../../static/img/coin.png" alt="coin"></li>
                     <li><p id="experience">{{totalmoney}}</p></li>
                     <li><img src="../../static/img/progress.png" alt="progress"></li>
-                    <li><a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a></li>
+                    <li><a href="loginl"><img src="../../static/img/out.png" alt="logout"></a></li>
                 </ul>
             </div>
         </div>
@@ -31,32 +30,29 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="student/codecooler/" class="selected">Inventory</a></li>
+                <li class="menu-item"><a href="student/codecooler/{{student.getId}}">Inventory</a></li>
                 <li class="menu-item"><a href="student/store">Store</a></li>
                 <li class="menu-item"><a href="student/incubator">Incubator</a></li>
-                <li class="menu-item"><a href="student/quests">Quests</a></li>
+                <li class="menu-item"><a href="student/quests"  class="selected">Quests</a></li>
                 <li class="menu-item"><a href="student/transactionhistory/{{student.getId}}">Transaction</a></li>
             </ul>
         </div>
         <div class="content-block">
-            <h1>Your artifacts</h1>
-            <table class="show-mentors">
+            <h1>Quests</h1>
+            <table class="show-mentors mark">
                 <thead>
                 <tr>
-                    <th>Artifact</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Is group</th>
-                    
+                    <th>Name</th>
+                    <th>Mark is done</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for artifact in ArtifactList %}   
+                {% for quest in QuestList %}
                 <tr>
-                    <td>{{artifact.getName}}</td>
-                    <td>{{artifact.getDescription}}</td>
-                    <td>{{artifact.getQuantity}}</td>
-                    <td>{{artifact.getCategory}}</td>
+                    <td>{{quest.getName}}</td>
+                    <td>{{quest.getDescription}}</td>
+                    <td>{{quest.getQuantity}}</td>
+                    <td>{{quest.getCategory}}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
