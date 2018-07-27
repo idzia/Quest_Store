@@ -12,15 +12,21 @@ public class App {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
         server.createContext("/login", new Login());
+
         server.createContext("/student", new StudentProfile());
         server.createContext("/store", new StudentStore());
         server.createContext("/store-buy-one", new StudentStoreOne());
         server.createContext("/transaction_history", new StudentHistory());
         server.createContext("/incubator", new StudentIncubator());
+
         server.createContext("/mentor", new MentorProfile());
         server.createContext("/quests", new MentorQuests());
         server.createContext("/artifacts", new MentorArtifacts());
+
         server.createContext("/admin", new AdminProfile());
+        server.createContext("/mentor_class", new AdminMentorClass());
+        server.createContext("/class", new AdminClass());
+
         server.createContext("/static", new Static());
         server.createContext("/logout", new Logout());
         server.setExecutor(null); // creates a default executor

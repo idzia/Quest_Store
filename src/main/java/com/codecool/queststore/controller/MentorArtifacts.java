@@ -20,7 +20,7 @@ public class MentorArtifacts implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-artifacts.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "mentor")) {
 
             Mentor loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
 

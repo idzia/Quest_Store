@@ -32,9 +32,9 @@
             <div class="bar-content-block">
                 <div class="bar">
                     <ul class="menu">
-                        <li class="menu-item"><a href="mentor" class="selected">Mentor</a></li>
-                        <li class="menu-item"><a href="mentor/class">Class</a></li>
-                        <li class="menu-item"><a href="mentor/level">Level</a></li>
+                        <li class="menu-item"><a href="/admin" class="selected">Mentors</a></li>
+                        <li class="menu-item"><a href="/class">Classes</a></li>
+                        <li class="menu-item"><a href="/level">Levels</a></li>
                     </ul>
                 </div>
 
@@ -45,7 +45,7 @@
                             <tr>
                                 <th>First name:</th>
                                 <th>Last name</th>
-                                <th>E-mail address</th>
+                                <th>E-mail</th>
                                 <th>Phone number</th>
                                 <th>Classes</th>
                                 <th>Edit</th>
@@ -53,34 +53,24 @@
                         </thead>
 
                         <tbody>
-                            {% for mentor in mentorList %}
-                            <tr>
-                                <td rowspan="3" class="table-row">{{mentor.getFirstName}}</td>
-                                <td rowspan="3" class="table-row">{{mentor.getLastName}}</td>
-                                <td rowspan="3" class="table-row">{{mentor.getEmail}}</td>
-                                <td rowspan="3" class="table-row">{{mentor.getPhoneNumber}}</td>
-                                <td>{{class.getClassList.get(0)}}</td>
-                                <td rowspan="3" class="table-row"><input class="edit-mentor-button table-row" onclick="window.location.href='AddNewMentor.html'" type="button" value="Edit"></td>
-
-                            </tr>
-                            <tr>
-                                <td>{{class.getClassList.get(1)}}</td>
-                            </tr>
-                            <tr>
-                                <td>{{class.getClassList.get(2)}}</td>
-                            </tr>
+                            {% for mentor in mentorsList %}
+                                <tr>
+                                    <td>{{mentor.getFirstName}}</td>
+                                    <td>{{mentor.getLastName}}</td>
+                                    <td>{{mentor.getEmail}}</td>
+                                    <td>{{mentor.getPhoneNumber}}</td>
+                                    <td><a href="mentor_class/{{mentor.getMentorId}}">Show</a></td>
+                                    <td><a href="add_mentor">Edit</a></td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    <form>
-                        <input class="add-button" onclick="window.location.href='AddNewMentor'" type="button" value="Add">
-                    </form>
+                    <div class="save-changes-button">
+                        <a href="create-mentor">Add mentor</a>
+                    </div>
                 </div>
             </div>
-
         </div>
-
-
         <footer>
             <a href='https://www.freepik.com/free-vector/assorted-user-avatars-collection_851876.htm'>Designed by Freepik</a>
             <p>MADD crew Production</p>

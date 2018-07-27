@@ -24,7 +24,7 @@ public class MentorProfile implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "mentor")) {
             Mentor loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
 
             UserDAO userDAO = new UserDAO();

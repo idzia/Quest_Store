@@ -20,15 +20,15 @@ public class StudentStore implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "student")) {
 
             Student loggedUser = (Student) Session.getLoggedUser(httpExchange);
 
             InventoryDAO inventoryDAO = new InventoryDAO();
             List<Artifact> storeInventory = inventoryDAO.getStoreInventory();
-            System.out.println(storeInventory.get(0).getArtifactPrice());
-            System.out.println(storeInventory.get(1).getArtifactPrice());
-            System.out.println(storeInventory.get(2).getArtifactPrice());
+//            System.out.println(storeInventory.get(0).getArtifactPrice());
+//            System.out.println(storeInventory.get(1).getArtifactPrice());
+//            System.out.println(storeInventory.get(2).getArtifactPrice());
 
             model.with("storeInventory", storeInventory);
             model.with("userName", loggedUser.getFirstName());

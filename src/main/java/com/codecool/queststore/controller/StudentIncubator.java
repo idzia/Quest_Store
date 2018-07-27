@@ -16,7 +16,7 @@ public class StudentIncubator implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/incubator.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "student")) {
             Student loggedUser = (Student) Session.getLoggedUser(httpExchange);
 
 //            InventoryDAO inventoryDAO = new InventoryDAO();

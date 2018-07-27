@@ -9,7 +9,8 @@ public abstract class User  {
     private String email;
     private String role;
 
-    public User (Integer userId, String firstName, String lastName, String phoneNumber, String email, String role) {
+    public User (Integer userId, String firstName, String lastName, String phoneNumber,
+                 String email, String role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,11 +51,11 @@ public abstract class User  {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumer() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumer(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

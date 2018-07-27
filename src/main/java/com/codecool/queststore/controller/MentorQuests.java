@@ -23,7 +23,7 @@ public class MentorQuests implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "mentor")) {
             Mentor loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
 
             QuestDAO questDAO = new QuestDAO();

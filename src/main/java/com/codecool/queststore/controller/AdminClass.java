@@ -2,7 +2,10 @@ package com.codecool.queststore.controller;
 
 import com.codecool.queststore.DAO.ClassDAO;
 import com.codecool.queststore.DAO.UserDAO;
-import com.codecool.queststore.model.*;
+import com.codecool.queststore.model.Admin;
+import com.codecool.queststore.model.CoolClass;
+import com.codecool.queststore.model.Mentor;
+import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -13,21 +16,20 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
-public class AdminProfile implements HttpHandler {
-
+public class AdminClass implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/mentor.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/class.twig");
         JtwigModel model = JtwigModel.newModel();
 
         if (Session.guard(httpExchange, "admin")) {
 
             Admin loggedUser = (Admin)Session.getLoggedUser(httpExchange);
 
-            UserDAO userDAO = new UserDAO();
-            List<Mentor> mentorsList = userDAO.getMentorsList();
+            ClassDAO classDAO = new ClassDAO();
+            Map<String, List<String>> classMentorMap = classDAO.getClassMentorsMap();
 
-            model.with("mentorsList", mentorsList);
+            model.with("classMentorMap", classMentorMap);
             model.with("userName", loggedUser.getFirstName());
         }
 
@@ -39,5 +41,4 @@ public class AdminProfile implements HttpHandler {
         os.close();
 
     }
-
 }

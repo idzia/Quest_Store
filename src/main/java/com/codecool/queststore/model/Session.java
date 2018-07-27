@@ -49,10 +49,26 @@ public class Session {
 
     public static boolean guard(HttpExchange httpExchange) throws IOException {
         if (Session.getLoggedUser(httpExchange) == null) {
+            System.out.println("not logged, redirect to login");
             Session.httpRedirectTo("/login", httpExchange);
             return false;
         } else {
             return true;
+        }
+    }
+
+    public static boolean guard(HttpExchange httpExchange, String neededRole) throws IOException {
+        boolean loginCheck = guard(httpExchange);
+        if (loginCheck== true) {
+            if (Session.getLoggedUser(httpExchange).getRole().equals(neededRole)) {
+                return true;
+            } else {
+                System.out.println("wrong role, redirect to login");
+                Session.httpRedirectTo("/login", httpExchange);
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

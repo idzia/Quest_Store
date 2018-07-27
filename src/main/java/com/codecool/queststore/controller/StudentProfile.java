@@ -20,7 +20,7 @@ public class StudentProfile implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/codecooler.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        if (Session.guard(httpExchange)) {
+        if (Session.guard(httpExchange, "student")) {
 
             Student loggedUser = (Student)Session.getLoggedUser(httpExchange);
 
