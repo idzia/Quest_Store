@@ -3,10 +3,9 @@ package com.codecool.queststore.DAO;
 
 import com.codecool.queststore.model.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserDAO {
@@ -33,10 +32,6 @@ public class UserDAO {
 
             while (resultSet.next()) {
                 Integer userId = resultSet.getInt("id_user");
-                //String UserFirstName = resultSet.getString("first_name");
-                //String UserLastName = resultSet.getString("last_name");
-                //String UserPhone = resultSet.getString("phone");
-                //String UserEmail = resultSet.getString("email");
                 String userRole = resultSet.getString("role");
 
                 switch (userRole) {
@@ -71,18 +66,19 @@ public class UserDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ///Integer userId = resultSet.getInt("id_user");
                 String userFirstName = resultSet.getString("first_name");
                 String userLastName = resultSet.getString("last_name");
                 String userPhone = resultSet.getString("phone");
                 String userEmail = resultSet.getString("email");
                 String userRole = resultSet.getString("role");
                 Integer studentId = resultSet.getInt("id_student");
+                Integer studentIdClass = resultSet.getInt("id_class");
                 Integer currentMoney = resultSet.getInt("current_money");
                 Integer totalMoney = resultSet.getInt("total_money");
 
                 loggedStudent = new Student(loggedUserId, userFirstName, userLastName,
-                        userPhone, userEmail, userRole, studentId, currentMoney, totalMoney);
+                        userPhone, userEmail, userRole, studentId, studentIdClass,
+                        currentMoney, totalMoney);
             }
             stmt.close();
 
@@ -104,7 +100,6 @@ public class UserDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ///Integer userId = resultSet.getInt("id_user");
                 String userFirstName = resultSet.getString("first_name");
                 String userLastName = resultSet.getString("last_name");
                 String userPhone = resultSet.getString("phone");
@@ -134,7 +129,6 @@ public class UserDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                ///Integer userId = resultSet.getInt("id_user");
                 String userFirstName = resultSet.getString("first_name");
                 String userLastName = resultSet.getString("last_name");
                 String userPhone = resultSet.getString("phone");
@@ -153,12 +147,51 @@ public class UserDAO {
         return loggedAdmin;
     }
 
+    public List<Student> getStudentsList () {
+
+        List<Student> studentsList = new ArrayList<>();
+
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM app_user " +
+                    "JOIN student ON student.id_user = app_user.id_user " +
+                    "WHERE app_user.role ='student'");
+
+            while (resultSet.next()) {
+                Integer userId = resultSet.getInt("id_user");
+                String userFirstName = resultSet.getString("first_name");
+                String userLastName = resultSet.getString("last_name");
+                String userPhoneNumber = resultSet.getString("phone");
+                String userEmail = resultSet.getString("email");
+                String userRole = resultSet.getString("role");
+                Integer studentId = resultSet.getInt("id_student");
+                Integer studentIdClass = resultSet.getInt("id_class");
+                Integer studentCurrentMoney = resultSet.getInt("current_money");
+                Integer studentTotalMoney = resultSet.getInt("total_money");
+                //String studentClass = resultSet.getString("class_name");
+
+                Student student = new Student(userId, userFirstName, userLastName, userPhoneNumber,
+                        userEmail, userRole, studentId, studentIdClass, studentCurrentMoney, studentTotalMoney);
+                studentsList.add(student);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return studentsList;
+    }
+
+
     public void addNewStudent(String userFirstName, String userLastName, String userPhone,
-                               String userEmail, String userRole) {
+                               String userEmail, String userRole, Integer userClassId,
+                              String userLogin, String userPassword) {
 
         try {
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO app_user (first_name, last_name, phone, email, role) VALUES(?,?,?,?,?) RETURNING id_user");
+                    "INSERT INTO app_user (first_name, last_name, phone, email, role) " +
+                            "VALUES(?,?,?,?,?) RETURNING id_user");
 
             stmt.setString(1, userFirstName);
             stmt.setString(2, userLastName);
@@ -170,26 +203,32 @@ public class UserDAO {
 
             if (resultSet.next()) {
                 Integer userId = resultSet.getInt("id_user");
-                System.out.println(userId);
+
+                PreparedStatement stmt2 = connection.prepareStatement(
+                        "INSERT INTO student (id_user, id_class, current_money, total_money) " +
+                                "VALUES(?,?,?,?)");
+                stmt.setInt(1, userId);
+                stmt.setInt(2, userClassId);
+                stmt.setInt(3, 0);
+                stmt.setInt(4, 0);
+
+                stmt2.executeQuery();
+
+                PreparedStatement stmt3 = connection.prepareStatement(
+                        "INSERT INTO authentication (login, password) " +
+                                "VALUES(?,?)");
+                stmt.setString(1, userLogin);
+                stmt.setString(2, userPassword);
+
+                stmt3.executeQuery();
             }
-
-
-//            stmt.setInt(6, userId);
-//            stmt.setString(7, userLogin);
-//            stmt.setString(8, userPassword);
-//
-//            stmt.setString(9, userClass);
-//
-//
-//
-//            stmt.executeQuery();
             stmt.close();
 
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-//        return loggedAdmin;
+
     }
 
 }

@@ -14,7 +14,7 @@
         </div>
         <div class="info">
             <div class="info-center">
-                <h1>HELLO <span>MENTOR</span></h1>
+                <h1>Hello {{userName}}</h1>
             </div>
             <div class="info-top">
                 <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
@@ -24,9 +24,9 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="mentor/mentor-top">students</a></li>
-                <li class="menu-item"><a href="mentor/mentor-quests">quests</a></li>
-                <li class="menu-item"><a href="mentor/mentor-artifacts" class="selected">artifacts</a></li>
+                <li class="menu-item"><a href="mentor">students</a></li>
+                <li class="menu-item"><a href="quests">quests</a></li>
+                <li class="menu-item"><a href="artifacts" class="selected">artifacts</a></li>
             </ul>
         </div>
         <div class="content-block">
@@ -42,19 +42,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for artifact in artifactList %}     
+                {% for artifact in storeInventory %}
                 <tr>
-                    <td>{{artifact.getName}}</td>
-                    <td>{{artifact.getDescription}}</td>
-                    <td>{{artifact.getPrice}}</td>
-                    <td>{{artifact.getCategory}}</td>
-                    <td><a href="mentor/create-artifact">Edit</a></td>
+                    <td>{{artifact.getArtifactName}}</td>
+                    <td>{{artifact.getArtifactDescription}}</td>
+                    <td>{{artifact.getArtifactPrice}}</td>
+                    <td>{{artifact.getArtifactCategory}}</td>
+                    <td><a href="artifact_creator">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             <div class="save-changes-button">
-                <a href="mentor/create-artifact">Add artifact</a>
+                <a href="artifact_creator">Add artifact</a>
             </div>
         </div>
     </div>

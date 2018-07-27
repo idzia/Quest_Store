@@ -54,15 +54,14 @@
                 <tr>
                     <td>{{artifact.getArtifactName}}</td>
                     <td>{{artifact.getArtifactDescription}}</td>
-                    <td>{{artifact.getArtifactQuantity}}</td>
+                    <td>{{artifact.getArtifactPrice}}</td>
                     {% if artifact.getArtifactCategory=='basic' %}
                     <td>&#9746;</td>
+                    <td><a href="store-buy-one/{{artifact.getArtifactId}}">BUY</a></td>
                     {% elseif artifact.getArtifactCategory=='magic' %}
                     <td>&#9745;</td>
+                    <td><a href="store-buy-group/{{artifact.getArtifactId}}">BUY</a></td>
                     {% endif %}
-                    <!--<td>{{artifact.getArtifactCategory}}</td>-->
-                    <td><a href="{{forward}}">BUY</a></td>
-                    <!--np forward = student/store-buy-one-->
                 </tr>
                 {% endfor %}
                 </tbody>

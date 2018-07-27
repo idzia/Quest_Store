@@ -5,6 +5,7 @@ public class Student extends User {
     private Integer currentMoney;
     private Integer totalMoney;
     private Integer studentId;
+    private Integer studentIdClass;
 
     public Student(Integer userId, String firstName, String lastName, String phoneNumber, String email,
                    String role) {
@@ -14,11 +15,20 @@ public class Student extends User {
     }
 
     public Student(Integer userId, String firstName, String lastName, String phoneNumber, String email,
-                   String role, Integer studentId, Integer currentMoney, Integer totalMoney) {
+                   String role, Integer studentId, Integer studentIdClass, Integer currentMoney, Integer totalMoney) {
         super(userId, firstName, lastName, phoneNumber, email, role);
         this.studentId = studentId;
         this.currentMoney = currentMoney;
         this.totalMoney = totalMoney;
+        this.studentIdClass = studentIdClass;
+    }
+
+    public Integer getStudentIdClass() {
+        return studentIdClass;
+    }
+
+    public void setStudentIdClass(Integer studentIdClass) {
+        this.studentIdClass = studentIdClass;
     }
 
     public Integer getStudentId() {

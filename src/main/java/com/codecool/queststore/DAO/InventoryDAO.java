@@ -28,12 +28,14 @@ public class InventoryDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
+                Integer artifactId = resultSet.getInt("id_artifact");
                 String artifactName = resultSet.getString("artifact_name");
                 String artifactDescription = resultSet.getString("description");
                 String artifactCategory = resultSet.getString("category");
                 Integer artifactQuantity = resultSet.getInt("quantity");
 
-                Artifact artifact = new Artifact(artifactName, artifactDescription, artifactCategory, artifactQuantity);
+                Artifact artifact = new Artifact(artifactId, artifactName, artifactDescription,
+                        artifactCategory, artifactQuantity);
                 studentInventory.add(artifact);
             }
 
@@ -44,7 +46,7 @@ public class InventoryDAO {
         return studentInventory;
     }
 
-    public List<Artifact> getStoreInventory(Integer studentId) {
+    public List<Artifact> getStoreInventory() {
 
         List<Artifact> storeInventory = new ArrayList<>();
         try {
@@ -53,12 +55,14 @@ public class InventoryDAO {
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM artifact");
 
             while (resultSet.next()) {
+                Integer artifactId = resultSet.getInt("id_artifact");
                 String artifactName = resultSet.getString("artifact_name");
                 String artifactDescription = resultSet.getString("description");
                 String artifactCategory = resultSet.getString("category");
                 Integer artifactPrice = resultSet.getInt("price");
 
-                Artifact artifact = new Artifact(artifactName, artifactDescription, artifactCategory, artifactPrice);
+                Artifact artifact = new Artifact(artifactId, artifactName, artifactDescription,
+                        artifactPrice, artifactCategory);
                 storeInventory.add(artifact);
             }
 
@@ -83,12 +87,14 @@ public class InventoryDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
+                Integer artifactId = resultSet.getInt("id_artifact");
                 String artifactName = resultSet.getString("artifact_name");
                 String artifactDescription = resultSet.getString("description");
                 String artifactCategory = resultSet.getString("category");
                 Integer artifactPrice = resultSet.getInt("price");
 
-                Artifact artifact = new Artifact(artifactName, artifactDescription, artifactCategory, artifactPrice);
+                Artifact artifact = new Artifact(artifactId, artifactName, artifactDescription,
+                        artifactCategory, artifactPrice);
                 usedInventory.add(artifact);
             }
 
@@ -97,6 +103,36 @@ public class InventoryDAO {
             System.exit(0);
         }
         return usedInventory;
-
     }
+
+    public Artifact getArtifactToBuy(Integer artifactId) {
+
+        Artifact artifactToBuy = null;
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM artifact " +
+                            "WHERE id_artifact = ?");
+            stmt.setInt(1, artifactId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                //Integer artifactId = resultSet.getInt("id_artifact");
+                String artifactName = resultSet.getString("artifact_name");
+                String artifactDescription = resultSet.getString("description");
+                String artifactCategory = resultSet.getString("category");
+                Integer artifactPrice = resultSet.getInt("price");
+
+                artifactToBuy = new Artifact(artifactId, artifactName,
+                        artifactDescription, artifactCategory, artifactPrice);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return artifactToBuy;
+    }
+
+
 }

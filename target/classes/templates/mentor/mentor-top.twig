@@ -10,7 +10,7 @@
 <div class="content">
     <header>
         <div id="user">
-            <a href="mentor/mentor-top"><img src="../../static/img/user.jpg" alt="avatar"></a>
+            <a href="mentor-top"><img src="../../static/img/user.jpg" alt="avatar"></a>
         </div>
         <div class="info">
             <div class="info-center">
@@ -24,9 +24,9 @@
     <div class="bar-content-block">
     <div class="bar">
         <ul class="menu">
-            <li class="menu-item"><a href="mentor/mentor-top" class="selected">students</a></li>
-            <li class="menu-item"><a href="mentor/mentor-quests">quests</a></li>
-            <li class="menu-item"><a href="mentor/mentor-artifacts">artifacts</a></li>
+            <li class="menu-item"><a href="mentor" class="selected">students</a></li>
+            <li class="menu-item"><a href="quests">quests</a></li>
+            <li class="menu-item"><a href="artifacts">artifacts</a></li>
         </ul>
     </div>
     <div class="content-block">
@@ -46,17 +46,20 @@
             </tr>
             </thead>
             <tbody>
-            {% for student in studentList %} 
+            {% for student in studentsList %}
+
             <tr>
                 <td>{{student.getFirstName}}</td>
                 <td>{{student.getLastName}}</td>
-                <td>{{student.getClass}}</td>
+
+                <td>{{coolClassMap.get(student.getStudentIdClass)}}</td>
+
                 <td>{{student.getTotalMoney}}</td>
-                <td>{{student.getMoney}}</td>
-                <td><a href="mentor/mentor-student-wallet">See</a></td>
-                <td><a href="mentor/create-student">Edit</a></td>
-                <td><a href="mentor/mentor-student-quests">Approve</a></td>
-                <td><a href="mentor/mentor-student-artifacts">Approve</a></td>
+                <td>{{student.getCurrentMoney}}</td>
+                <td><a href="mentor-student-wallet">See</a></td>
+                <td><a href="create-student">Edit</a></td>
+                <td><a href="mentor-student-quests">Approve</a></td>
+                <td><a href="mentor-student-artifacts">Approve</a></td>
             </tr>
             {% endfor %}
             

@@ -18,13 +18,13 @@ public abstract class User  {
         this.role = role;
     }
 
-    public User(String firstName, String lastName, String phoneNumber, String email, String role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.role = role;
-    }
+//    public User(String firstName, String lastName, String phoneNumber, String email, String role) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phoneNumber = phoneNumber;
+//        this.email = email;
+//        this.role = role;
+//    }
 
     public Integer getUserId() {
         return userId;
@@ -73,9 +73,5 @@ public abstract class User  {
     public void setRole(String role) {
         this.role = role;
     }
-
-//    public abstract Integer getCurrentMoney();
-//
-//    public abstract Integer getTotalMoney();
 
 }

@@ -9,12 +9,17 @@ public class Admin extends User {
         super(userId, firstName, lastName, phoneNumber, email, role);
         this.adminId = adminId;
     }
-    public Admin(String firstName, String lastName, String phoneNumber,
-                 String email, String role) {
-        super(firstName, lastName, phoneNumber, email, role);
-    }
+//    public Admin(Integer userId, String firstName, String lastName, String phoneNumber,
+//                 String email, String role) {
+//        super(firstName, lastName, phoneNumber, email, role);
+//    }
+
 
     public Integer getAdminId() {
-        return this.adminId;
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 }

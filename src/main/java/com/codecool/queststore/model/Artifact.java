@@ -1,26 +1,37 @@
 package com.codecool.queststore.model;
 
 public class Artifact {
+    private Integer artifactId;
     private String artifactName;
     private String artifactDescription;
     private Integer artifactPrice;
     private String artifactCategory;
     private Integer artifactQuantity;
 
-    public Artifact(String artifactName, String artifactDescription,
+    public Artifact(Integer artifactId, String artifactName, String artifactDescription,
                     String artifactCategory, Integer quantity) {
+        this.artifactId = artifactId;
         this.artifactName = artifactName;
         this.artifactDescription = artifactDescription;
         this.artifactCategory = artifactCategory;
         this.artifactQuantity = quantity;
     }
 
-    public Artifact(String artifactName, String artifactDescription,
+    public Artifact(Integer artifactId, String artifactName, String artifactDescription,
                     Integer artifactPrice, String artifactCategory) {
+        this.artifactId = artifactId;
         this.artifactName = artifactName;
         this.artifactDescription = artifactDescription;
         this.artifactPrice = artifactPrice;
         this.artifactCategory = artifactCategory;
+    }
+
+    public Integer getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(Integer artifactId) {
+        this.artifactId = artifactId;
     }
 
     public String getArtifactName() {

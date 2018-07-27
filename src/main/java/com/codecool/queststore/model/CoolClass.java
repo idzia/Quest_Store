@@ -1,37 +1,27 @@
 package com.codecool.queststore.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CoolClass {
-
+    private Integer classId;
     private String className;
-    private List<Mentor> classMentors;
-    private List<Student> classStudents;
 
-    public CoolClass(String className) {
+    public CoolClass(Integer classId, String className) {
+        this.classId = classId;
         this.className = className;
-        classMentors = new ArrayList<>();
-        classStudents = new ArrayList<>();
     }
 
-    public void addToClassMentors(Mentor mentor) {
-        classMentors.add(mentor);
+    public Integer getClassId() {
+        return classId;
     }
 
-    public void addToClassStudents(Student student) {
-        classStudents.add(student);
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 
     public String getClassName() {
         return className;
     }
 
-    public List<Mentor> getClassMentors() {
-        return classMentors;
-    }
-
-    public List<Student> getClassStudents() {
-        return classStudents;
+    public void setClassName(String className) {
+        this.className = className;
     }
 }
