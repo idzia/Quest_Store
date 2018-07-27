@@ -76,7 +76,7 @@ public class ClassDAO {
             Statement stmt = connection.createStatement();
 
             ResultSet resultSet = stmt.executeQuery("SELECT cool_class.class_name, app_user.first_name, app_user.first_name, " +
-                    "concat(app_user.first_name,' ',app_user.first_name) \"fullName\" " +
+                    "concat(app_user.first_name,' ',app_user.last_name) \"fullName\" " +
                     "FROM cool_class " +
                     "JOIN mentor_2_class ON mentor_2_class.id_class = cool_class.id_class " +
                     "JOIN mentor ON mentor.id_mentor = mentor_2_class.id_mentor " +
