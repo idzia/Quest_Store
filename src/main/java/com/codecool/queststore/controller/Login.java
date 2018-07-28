@@ -7,7 +7,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
-import sun.security.provider.MD5;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
@@ -21,6 +20,7 @@ import java.security.MessageDigest;
 
 
 public class Login implements HttpHandler {
+
     private UserDAO userDao;
 
     public Login() {
@@ -32,14 +32,12 @@ public class Login implements HttpHandler {
         String method = httpExchange.getRequestMethod();
         String response="";
         boolean error = false;
+
         if (method.equals("GET")) {
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
             JtwigModel model = JtwigModel.newModel();
-//            model.with("counter", counter);
-//            model.with("isNewSession", isNewSession);
-//            model.with("sessionId", cookie.getValue());
-//            model.with("twigPath", Session.getTwigPath());
             response = template.render(model);
+            System.out.println(error);
         }
 
         if (method.equals("POST")) {
@@ -48,24 +46,21 @@ public class Login implements HttpHandler {
             BufferedReader br = new BufferedReader(isr);
             String formData = br.readLine();
 
-            //String sessionId;
             Map inputs = parseFormData(formData);
 
             String login = inputs.get("login").toString();
             String pass = inputs.get("pass").toString();
             String password = hashedPass(pass);
-            //String templatePath = "";
-            System.out.println(password);
-
 
             User loggedUser = userDao.getUserByCredentials(login, password);
-            //User loggedUser = loginformDB.getUserByCredentials(login, password);
 
             if (loggedUser == null) {
                 error = true;
+
                 JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
                 JtwigModel model = JtwigModel.newModel();
                 model.with("error", error);
+                response = template.render(model);
 
             } else {
                 String sessionId = generateSessionId();
@@ -86,17 +81,13 @@ public class Login implements HttpHandler {
                         break;
                 }
 
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/codecooler.twig");
+                JtwigModel model = JtwigModel.newModel();
+                model.with("error", error);
+                response = template.render(model);
             }
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/codecooler.twig");
-            JtwigModel model = JtwigModel.newModel();
-            model.with("error", error);
-
-            //model.with("isNewSession", isNewSession);
-            //model.with("sessionId", cookie.getValue());
-
-            response = template.render(model);
         }
-        //response = template.render(model);
+
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
@@ -139,7 +130,7 @@ public class Login implements HttpHandler {
     private void httpRedirectTo(String dest, HttpExchange httpExchange) throws IOException {
         String hostPort = httpExchange.getRequestHeaders().get("host").get(0);
         httpExchange.getResponseHeaders().set("Location", "http://" + hostPort + dest);
-        httpExchange.sendResponseHeaders(301, -1);
+        httpExchange.sendResponseHeaders(302, -1);
     }
 
 

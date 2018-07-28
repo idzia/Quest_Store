@@ -1,11 +1,7 @@
 package com.codecool.queststore.DAO;
 
-import com.codecool.queststore.model.Admin;
-import com.codecool.queststore.model.Artifact;
-import com.codecool.queststore.model.CoolClass;
 import com.codecool.queststore.model.DataBaseConnection;
 
-import javax.swing.text.StringContent;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;

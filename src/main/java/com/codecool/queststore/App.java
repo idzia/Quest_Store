@@ -26,6 +26,7 @@ public class App {
         server.createContext("/admin", new AdminProfile());
         server.createContext("/mentor_class", new AdminMentorClass());
         server.createContext("/class", new AdminClass());
+        server.createContext("/level", new AdminLevel());
 
         server.createContext("/static", new Static());
         server.createContext("/logout", new Logout());

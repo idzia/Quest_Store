@@ -11,10 +11,15 @@
 
 <body>
     <div class="form-container">
-        <img src="../static/img/user.jpg" title="user" class="user-image">
+        <img src="../static/img/user.png" title="user" class="user-image">
         <img src="../static/img/codecool_logo.png" title="user" class="logo">
         <div class="greeting">
-            <h2>Welcome to queststore!</h2>
+            {% if error==true %}
+                <h2>LOGIN FAILED TRY AGAIN!</h2>
+            {% else %}
+                <h2>Welcome to queststore!</h2>
+            {% endif %}
+
         </div>
         <form action="login" method="POST" class="inputs-container">
 
@@ -26,9 +31,7 @@
                 <input id="pass" type="password" class="input" name="pass" placeholder="Your password" required>
             </div>
             <input type="submit" class="login-button" id="login-button" name="submit" value="Sign in" >
-            {% if error==true %}
-                <p id="error">LOGIN FAILED<br>Try again!</p>
-            {% endif %}
+
         </form>
     </div>
 </body>

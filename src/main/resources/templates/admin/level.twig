@@ -14,12 +14,12 @@
 <div class="content">
     <header>
         <div id="user">
-            <a href="mentor"><img src="../../static/img/user.jpg" alt="avatar" ></a>
+            <a href="admin"><img src="../../static/img/admin.png" alt="avatar" ></a>
         </div>
 
         <div class="info">
             <div class="info-center">
-                <h1>WELCOME ADMIN!</h1>
+                <h1>Hello {{userName}}!</h1>
             </div>
             <div class="info-top">
                 <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
@@ -41,15 +41,22 @@
             <table class="show-mentors">
                 <thead>
                 <tr>
+                    <th>Level</th>
                     <th>Name</th>
                     <th>Experience</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                {%set lp = 0 %}
                 {% for level in levelList %}
+
                 <tr>
-                    <td>{{level.getName}}</td>
-                    <td>{{level.getLevelMoney}}</td>
+                    {%set lp = lp + 1 %}
+                    <td>{{lp}}</td>
+                    <td>{{level.getLevelName}}</td>
+                    <td>{{level.getLevelTotalMoney}}</td>
+                    <td><a href="level_edit/{{level.getLevelId}}">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

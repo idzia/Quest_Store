@@ -11,11 +11,11 @@
 <div class="content">
     <header>
         <div id="user">
-            <img src="../../static/img/user2.png" alt="avatar" >
+            <img src="../../static/img/student1.png" alt="avatar" >
         </div>
         <div class="info">
             <div class="info-center">
-                <h1>Hello Ania</h1>
+                <h1>Hello {{userName}}</h1>
             </div>
             <div class="info-top">
                 <ul class="describe_item">
@@ -31,11 +31,11 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="student/codecooler/{{student.getId}}">Inventory</a></li>
-                <li class="menu-item"><a href="student/store">Store</a></li>
-                <li class="menu-item"><a href="student/incubator" class="selected">Incubator</a></li>
-                <li class="menu-item"><a href="student/quests">Quests</a></li>
-                <li class="menu-item"><a href="student/transactionhistory/{{student.getId}}">Transaction</a></li>
+                <li class="menu-item"><a href="/student">Inventory</a></li>
+                <li class="menu-item"><a href="/store">Store</a></li>
+                <li class="menu-item"><a href="/incubator" class="selected">Incubator</a></li>
+                <li class="menu-item"><a href="/quests">Quests</a></li>
+                <li class="menu-item"><a href="/transaction_history">Transaction</a></li>
             </ul>
         </div>
         <div class="content-block">

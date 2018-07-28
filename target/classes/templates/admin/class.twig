@@ -14,7 +14,7 @@
     <div class="content">
         <header>
             <div id="user">
-                <a href="mentor"><img src="../../static/img/user.jpg" alt="avatar" ></a>
+                <a href="admin"><img src="../../static/img/admin.png" alt="avatar" ></a>
             </div>
 
             <div class="info">
@@ -41,19 +41,27 @@
                 <table class="show-mentors">
                     <thead>
                         <tr>
+                            <th>Lp</th>
                             <th>Class</th>
+                            <th></th>
                             <th>Mentors</th>
+
                         </tr>
                     </thead>
 
                     <tbody>
+                        {%set lp = 0 %}
                         {% for key, value in classMentorMap %}
                             <tr>
+                                {%set lp = lp + 1 %}
+                                <td rowspan={{classMentorMap.size()}}>{{lp}}</td>
                                 <td rowspan={{classMentorMap.size()}}>{{key}}</td>
+                                <td rowspan={{classMentorMap.size()}}><a href="class_edit/{{class.getClassId}}">Edit</a></td>
 
                                 {% for name in value%}
 
-                                    <td>{{name}}</td></tr><tr>
+                                    <td>{{name}}</td>
+                                    </tr><tr>
 
                                 {% endfor %}
 
@@ -63,6 +71,7 @@
                 </table>
                 <form>
                     <input class="add-class-button" onclick="window.location.href='addNewClass.html'" type="button" value="Add">
+
                 </form>
             </div>
         </div>

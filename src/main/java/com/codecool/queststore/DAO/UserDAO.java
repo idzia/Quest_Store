@@ -18,7 +18,6 @@ public class UserDAO {
 
     public User getUserByCredentials(String login, String password) {
         User loggedUser = null;
-        //Integer loggedUserId = null;
 
         try {
             PreparedStatement stmt = connection.prepareStatement(
