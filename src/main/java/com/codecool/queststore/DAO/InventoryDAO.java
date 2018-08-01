@@ -134,5 +134,96 @@ public class InventoryDAO {
         return artifactToBuy;
     }
 
+    public Artifact getArtifactById(Integer artifactId) {
 
+        Artifact artifact = null;
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM artifact " +
+                            "WHERE id_artifact = ?");
+            stmt.setInt(1, artifactId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                //Integer artifactId = resultSet.getInt("id_artifact");
+                String artifactName = resultSet.getString("artifact_name");
+                String artifactDescription = resultSet.getString("description");
+                String artifactCategory = resultSet.getString("category");
+                Integer artifactPrice = resultSet.getInt("price");
+
+                artifact = new Artifact(artifactId, artifactName,
+                        artifactDescription, artifactPrice, artifactCategory);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return artifact;
+    }
+
+    public List<String> getArtifactCategoryList() {
+        List<String> artifactCategoryList = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT category FROM artifact");
+
+            while (resultSet.next()) {
+                String artifactCategory = resultSet.getString("category");
+
+                if (!artifactCategoryList.contains(artifactCategory)){
+                    artifactCategoryList.add(artifactCategory);
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return artifactCategoryList;
+    }
+
+    public void addNewArtifact(String artifactName, Integer artifactValue, String artifactType,
+                               String artifactDescription) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO artifact (artifact_name, price, category, description) " +
+                            "VALUES(?,?,?,?)");
+            stmt.setString(1, artifactName);
+            stmt.setInt(2, artifactValue);
+            stmt.setString(3, artifactType);
+            stmt.setString(4, artifactDescription);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public void updateArtifact(Integer artifactId, String artifactName, Integer artifactValue,
+                               String artifactType, String artifactDescription) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "UPDATE artifact " +
+                            "SET artifact_name = ?, price = ?, category = ?, description = ?" +
+                            "WHERE id_artifact = ?");
+
+            stmt.setString(1, artifactName);
+            stmt.setInt(2, artifactValue);
+            stmt.setString(3, artifactType);
+            stmt.setString(4, artifactDescription);
+            stmt.setInt(5, artifactId);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
 }

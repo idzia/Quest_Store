@@ -1,7 +1,11 @@
 package com.codecool.queststore.controller;
 
-import com.codecool.queststore.DAO.QuestDAO;
-import com.codecool.queststore.model.*;
+import com.codecool.queststore.DAO.ClassDAO;
+import com.codecool.queststore.DAO.UserDAO;
+import com.codecool.queststore.model.CoolClass;
+import com.codecool.queststore.model.Mentor;
+import com.codecool.queststore.model.Session;
+import com.codecool.queststore.model.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -13,8 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public class MentorEditQuest implements HttpHandler {
+public class MentorEditStudent implements HttpHandler {
 
     public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -27,18 +30,23 @@ public class MentorEditQuest implements HttpHandler {
 
             if (method.equals("GET")) {
 
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit-quest.twig");
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit-student.twig");
                 JtwigModel model = JtwigModel.newModel();
 
-                String questId = parsePath(httpExchange)[2];
+                String studentId = parsePath(httpExchange)[2];
 
-                QuestDAO questDAO = new QuestDAO();
-                Quest editQuest = questDAO.getQuestbyId(Integer.valueOf(questId));
-                List<String> questCategoryList = questDAO.getQuestCategoryList();
 
-                model.with("quest", editQuest);
-                model.with("questId", questId);
-                model.with("questCategoryList", questCategoryList);
+                UserDAO userDAO = new UserDAO();
+                ClassDAO classDAO = new ClassDAO();
+                Student editStudent = userDAO.getStudentById(Integer.valueOf(studentId));
+                Integer currentClassId = userDAO.getStudentById(Integer.valueOf(studentId)).getStudentIdClass();
+                String currentClassName = classDAO.getClassMap().get(currentClassId);
+                List<CoolClass> classList = classDAO.getClassList();
+
+                model.with("student", editStudent);
+                model.with("studentId", studentId);
+                model.with("currentClass", currentClassName);
+                model.with("classList", classList);
                 model.with("userName", loggedUser.getFirstName());
                 response = template.render(model);
             }
@@ -51,24 +59,30 @@ public class MentorEditQuest implements HttpHandler {
 
                 Map<String, String> inputs = parseFormData(formData);
 
-                String questName = inputs.get("name");
-                String questValueString = inputs.get("surname");
-                String questType = inputs.get("standard");
-                String questDescription = inputs.get("description");
+                String studentFirstName = inputs.get("name");
+                String studentLastName = inputs.get("surname");
+                String studentPhone = inputs.get("phone");
+                String studentEmail = inputs.get("email");
+                String studentClass = inputs.get("class");
+                String studentCurrentMoney = inputs.get("coins");
+                String studentTotalMoney = inputs.get("level");
 
-                Integer questValue = Integer.valueOf(questValueString);
 
-                String questIdString = parsePath(httpExchange)[2];
-                Integer questId = Integer.valueOf(questIdString);
+                String studentId = parsePath(httpExchange)[2];
 
-                QuestDAO questDAO = new QuestDAO();
-                questDAO.updateQuest(questId, questName, questValue, questType, questDescription);
+                ClassDAO coolClass = new ClassDAO();
+                Integer studentClassId = coolClass.getClassIdByName(studentClass);
+
+                UserDAO userDAO = new UserDAO();
+                userDAO.updateStudent(Integer.valueOf(studentId), studentFirstName,
+                        studentLastName, studentPhone, studentEmail, studentClassId,
+                        Integer.valueOf(studentCurrentMoney), Integer.valueOf(studentTotalMoney));
 
 //                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/quest.twig");
 //                JtwigModel model = JtwigModel.newModel();
 //                response = template.render(model);
 
-                httpRedirectTo("/quests", httpExchange);
+                httpRedirectTo("/mentor", httpExchange);
 
             }
         }

@@ -64,28 +64,6 @@
                                 <td><a href="class_edit/{{class.getClassId}}">Edit</a></td>
                             </tr>
                         {% endfor %}
-
-
-
-
-                        <!--{%set lp = 0 %}
-                        {% for key, value in classMentorMap %}
-                            <tr>
-                                {%set lp = lp + 1 %}
-                                <td rowspan={{classMentorMap.size()}}>{{lp}}</td>
-                                <td rowspan={{classMentorMap.size()}}>{{key}}</td>
-                                <td rowspan={{classMentorMap.size()}}><a href="class_edit/{{class.getClassId}}">Edit</a></td>
-
-                                {% for name in value%}
-
-                                    <td>{{name}}</td>
-                                    </tr><tr>
-
-                                {% endfor %}
-
-                            </tr>
-                        {% endfor %}-->
-
                     </tbody>
                 </table>
                 <div class="save-changes-button">

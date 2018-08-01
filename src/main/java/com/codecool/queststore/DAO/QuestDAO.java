@@ -93,6 +93,29 @@ public class QuestDAO {
         return editQuest;
     }
 
+    public List<String> getQuestCategoryList() {
+        List<String> questCategoryList = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT category FROM quest");
+
+            while (resultSet.next()) {
+                String questCategory = resultSet.getString("category");
+
+                if (!questCategoryList.contains(questCategory)){
+                    questCategoryList.add(questCategory);
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return questCategoryList;
+    }
+
     public void updateQuest(Integer questId, String questName, Integer questValue,
                             String questType, String questDescription) {
 

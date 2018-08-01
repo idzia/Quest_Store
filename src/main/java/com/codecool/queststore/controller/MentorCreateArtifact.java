@@ -1,31 +1,25 @@
 package com.codecool.queststore.controller;
 
-import com.codecool.queststore.DAO.ClassDAO;
-import com.codecool.queststore.DAO.QuestDAO;
-import com.codecool.queststore.DAO.UserDAO;
-import com.codecool.queststore.model.CoolClass;
+import com.codecool.queststore.DAO.InventoryDAO;
 import com.codecool.queststore.model.Mentor;
-import com.codecool.queststore.model.Quest;
 import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
+public class MentorCreateArtifact implements HttpHandler {
 
-public class MentorCreateQuest implements HttpHandler {
+    private InventoryDAO inventoryDAO;
 
-    private QuestDAO questDAO;
+    public MentorCreateArtifact() {
 
-    public MentorCreateQuest() {
-
-        questDAO = new QuestDAO();
+        inventoryDAO = new InventoryDAO();
     }
     public void handle(HttpExchange httpExchange) throws IOException {
 
@@ -34,11 +28,11 @@ public class MentorCreateQuest implements HttpHandler {
 
         if (Session.guard(httpExchange, "mentor")) {
 
-            Mentor loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
+            Mentor loggedUser = (Mentor)Session.getLoggedUser(httpExchange);
 
             if (method.equals("GET")) {
 
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/create-quest.twig");
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/create-artifact.twig");
                 JtwigModel model = JtwigModel.newModel();
 
                 model.with("userName", loggedUser.getFirstName());
@@ -53,15 +47,15 @@ public class MentorCreateQuest implements HttpHandler {
 
                 Map<String, String> inputs = parseFormData(formData);
 
-                String questName = inputs.get("name");
-                String questValueString = inputs.get("surname");
-                String questType = inputs.get("standard");
-                String questDescription = inputs.get("description");
-                Integer questValue = Integer.valueOf(questValueString);
+                String artifactName = inputs.get("name");
+                String artifactValueString = inputs.get("surname");
+                String artifactType = inputs.get("standard");
+                String artifactDescription = inputs.get("description");
+                Integer artifactValue = Integer.valueOf(artifactValueString);
 
                 //System.out.println(questName + questValueString + questType + questDescription);
 
-                questDAO.addNewQuest(questName, questValue, questType, questDescription);
+                inventoryDAO.addNewArtifact(artifactName, artifactValue, artifactType, artifactDescription);
 
                 JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
                 JtwigModel model = JtwigModel.newModel();

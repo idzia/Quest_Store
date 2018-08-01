@@ -303,7 +303,7 @@ button:disabled {
 #subject {
     height: 200px;
 }
-#name, #surname, #email, #phone, #description,
+#name, #surname, #email, #phone, #description, #currentClass
 #login, #pass, #class, #coins, #level, #magic, #standard {
     width: 80%;
     padding: 12px;

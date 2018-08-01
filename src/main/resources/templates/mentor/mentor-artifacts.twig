@@ -48,13 +48,13 @@
                     <td>{{artifact.getArtifactDescription}}</td>
                     <td>{{artifact.getArtifactPrice}}</td>
                     <td>{{artifact.getArtifactCategory}}</td>
-                    <td><a href="artifact_creator">Edit</a></td>
+                    <td><a href="edit_artifact/{{artifact.getArtifactId}}">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             <div class="save-changes-button">
-                <a href="artifact_creator">Add artifact</a>
+                <a href="/create_artifact">Add artifact</a>
             </div>
         </div>
     </div>

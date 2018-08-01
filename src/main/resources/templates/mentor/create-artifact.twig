@@ -33,12 +33,13 @@
         <div class="content-block">
    <!--======================Breadcrumbs========================         -->
             <ul class="breadcrumb">
-                <li>-> <a href="mentor/mentor-artifacts">Artifacts</a></li>
+                <li>-> <a href="artifacts">Artifacts</a></li>
                 <li>Add artifact</li>
             </ul>
             <h1>Add artifact</h1>
+
    <!--=====================Input Form for student creation================         -->
-            <form class="input-form">
+            <form action="create_quest" method="POST" class="input-form">
                 <div class="row">
                     <div class="col-25">
                         <label for="name">Name of the Artifact*</label>
@@ -48,43 +49,44 @@
                         <div id="err-name-fn"></div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-25">
-                        <label for="surname">Price of the Artifact*</label>
+                        <label for="surname">Value of the Artifact*</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="surname" name="name" placeholder="Artifact's price.." required>
+                        <input type="text" id="surname" name="surname" placeholder="Artifact's value.." required>
                         <div id="err-surname-fn"></div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-25">
-                        <label for="standard">Standard</label>
+                        <label for="standard">Type of the Artifact</label>
                     </div>
                     <div class="col-75">
-                        <input type="radio" name="type" id="standard" value="standard" checked>
+                        <select id="standard" name="standard">
+                            <option>basic</option>
+                            <option>magic</option>
+                        <div id="err-class-fn"></div>
+                        </select>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-25">
-                        <label for="magic">Magic</label>
+                        <label for="description">Description of theArtifact*</label>
                     </div>
                     <div class="col-75">
-                        <input type="radio" name="type" id="magic" value="magic">
+                        <textarea id="description" name="description" placeholder="Describe of the Artifact*.."></textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="description">Description of the Artifact</label>
-                    </div>
-                    <div class="col-75">
-                        <textarea id="description" name="description" placeholder="Describe the Artifact.."></textarea>
-                    </div>
+                <div class="save-changes-button">
+                    <input id="submit-button" type="submit" name="submit" value="Save">
                 </div>
             </form>
-            <form class="save-changes-button" id="button-follow-modal" onsubmit="return false">
-                <input id="submit-button" type="submit" name="submit" value="Save">
-            </form>
+
         </div>
     </div>
 </div>

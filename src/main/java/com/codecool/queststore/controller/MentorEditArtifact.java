@@ -1,32 +1,24 @@
 package com.codecool.queststore.controller;
 
-import com.codecool.queststore.DAO.ClassDAO;
-import com.codecool.queststore.DAO.QuestDAO;
-import com.codecool.queststore.DAO.UserDAO;
-import com.codecool.queststore.model.CoolClass;
+import com.codecool.queststore.DAO.InventoryDAO;
+
+import com.codecool.queststore.model.Artifact;
 import com.codecool.queststore.model.Mentor;
-import com.codecool.queststore.model.Quest;
+
 import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.net.URLDecoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+public class MentorEditArtifact implements HttpHandler {
 
-public class MentorCreateQuest implements HttpHandler {
-
-    private QuestDAO questDAO;
-
-    public MentorCreateQuest() {
-
-        questDAO = new QuestDAO();
-    }
     public void handle(HttpExchange httpExchange) throws IOException {
 
         String method = httpExchange.getRequestMethod();
@@ -38,9 +30,19 @@ public class MentorCreateQuest implements HttpHandler {
 
             if (method.equals("GET")) {
 
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/create-quest.twig");
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit-artifact.twig");
                 JtwigModel model = JtwigModel.newModel();
 
+                String artifactId = parsePath(httpExchange)[2];
+                //Integer artifactId = Integer.valueOf(artifactIdString);
+
+                InventoryDAO artifactDAO = new InventoryDAO();
+                Artifact editArtifact = artifactDAO.getArtifactById(Integer.valueOf(artifactId));
+                List<String> artifactCategoryList = artifactDAO.getArtifactCategoryList();
+
+                model.with("artifact", editArtifact);
+                model.with("artifactId", artifactId);
+                model.with("artifactCategoryList", artifactCategoryList);
                 model.with("userName", loggedUser.getFirstName());
                 response = template.render(model);
             }
@@ -53,21 +55,24 @@ public class MentorCreateQuest implements HttpHandler {
 
                 Map<String, String> inputs = parseFormData(formData);
 
-                String questName = inputs.get("name");
-                String questValueString = inputs.get("surname");
-                String questType = inputs.get("standard");
-                String questDescription = inputs.get("description");
-                Integer questValue = Integer.valueOf(questValueString);
+                String artifactName = inputs.get("name");
+                String artifactValueString = inputs.get("surname");
+                String artifactType = inputs.get("standard");
+                String artifactDescription = inputs.get("description");
 
-                //System.out.println(questName + questValueString + questType + questDescription);
+                Integer artifactValue = Integer.valueOf(artifactValueString);
 
-                questDAO.addNewQuest(questName, questValue, questType, questDescription);
+                String artifactIdString = parsePath(httpExchange)[2];
+                Integer artifactId = Integer.valueOf(artifactIdString);
 
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
-                JtwigModel model = JtwigModel.newModel();
-                response = template.render(model);
+                InventoryDAO artifactDAO = new InventoryDAO();
+                artifactDAO.updateArtifact(artifactId, artifactName, artifactValue, artifactType, artifactDescription);
 
-                httpRedirectTo("/mentor", httpExchange);
+//                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/quest.twig");
+//                JtwigModel model = JtwigModel.newModel();
+//                response = template.render(model);
+
+                httpRedirectTo("/artifacts", httpExchange);
 
             }
         }
@@ -76,7 +81,11 @@ public class MentorCreateQuest implements HttpHandler {
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+    }
 
+    private String[] parsePath(HttpExchange httpExchange) {
+        String[] pathArray = httpExchange.getRequestURI().getPath().split("/");
+        return pathArray;
     }
 
     private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
@@ -95,5 +104,4 @@ public class MentorCreateQuest implements HttpHandler {
         httpExchange.getResponseHeaders().set("Location", "http://" + hostPort + dest);
         httpExchange.sendResponseHeaders(302, -1);
     }
-
 }

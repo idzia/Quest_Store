@@ -17,7 +17,7 @@
                 <h1>Hello {{userName}}</span></h1>
             </div>
             <div class="info-top">
-                <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
+                <a href="/login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
             </div>
         </div>
     </header>
@@ -31,24 +31,39 @@
         </div>
         <div class="content-block">
             <ul class="breadcrumb">
-                <li>-> <a href="mentor/mentor-top">Students</a></li>
+                <li>-> <a href="/mentor">Students</a></li>
                 <li>Student's wallet</li>
             </ul>
-            <h1><em>Student's name </em>Wallet</h1>
+            <h1>{{student.getFirstName}}'s Wallet</h1>
             <table class="show-mentors">
                 <thead>
                 <tr>
                     <th>Coins</th>
+                    <th>Level</th>
                     <th>Bought Artifacts</th>
+                    <th>Quantity of Artifacts</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for wallet in walletList %}
+
                 <tr>
-                    <td rowspan="3">{{wallet.getMoney}}</td>
-                    <td>{{wallet.getArtifact}}</td>
+                    <td>{{student.getCurrentMoney}}</td>
+                    <td>{{student.getTotalMoney}}</td>
+                    <td>
+                        {% for studentArtifact in studentArtifactList %}
+                            {{studentArtifact.getArtifactName}}<br>
+                            <!--<td>{{studentArtifact.getArtifactQuantity}}</td>-->
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for studentArtifact in studentArtifactList %}
+                            <!--{{studentArtifact.getArtifactName}}<br>-->
+                            {{studentArtifact.getArtifactQuantity}}<br>
+                        {% endfor %}
+                    </td>
+
                 </tr>
-                {% endfor %}
+
                 </tbody>
             </table>
         </div>

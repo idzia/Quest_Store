@@ -355,7 +355,7 @@ public class UserDAO {
     }
 
     public Mentor getMentorById(Integer mentorId) {
-        Mentor editMentor = null;
+        Mentor mentor = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * FROM app_user JOIN mentor " +
@@ -372,7 +372,7 @@ public class UserDAO {
                 String userEmail = resultSet.getString("email");
                 String userRole = resultSet.getString("role");
 
-                editMentor = new Mentor(userId, userFirstName, userLastName,
+                mentor = new Mentor(userId, userFirstName, userLastName,
                         userPhone, userEmail, userRole, mentorId);
             }
             stmt.close();
@@ -380,7 +380,43 @@ public class UserDAO {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        return editMentor;
+        return mentor;
+
+    }
+
+    public Student getStudentById (Integer studentId) {
+        Student student = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM app_user JOIN student " +
+                            "ON app_user.id_user = student.id_user " +
+                            "WHERE student.id_student = ?");
+            stmt.setInt(1, studentId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                Integer userId = resultSet.getInt("id_user");
+                String userFirstName = resultSet.getString("first_name");
+                String userLastName = resultSet.getString("last_name");
+                String userPhone = resultSet.getString("phone");
+                String userEmail = resultSet.getString("email");
+                String userRole = resultSet.getString("role");
+                //Integer studentId = resultSet.getInt("id_student");
+                Integer studentClassId = resultSet.getInt("id_class");
+                Integer studentCurrentMoney = resultSet.getInt("current_money");
+                Integer studentTotalMoney = resultSet.getInt("total_money");
+
+                student = new Student(userId, userFirstName, userLastName,
+                        userPhone, userEmail, userRole, studentId, studentClassId,
+                        studentCurrentMoney, studentTotalMoney);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return student;
+
 
     }
 
@@ -410,8 +446,58 @@ public class UserDAO {
             stmt2.setString(4, mentorEmail);
             stmt2.setInt(5, userId);
 
+            stmt2.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public void updateStudent(Integer studentId, String studentFirstName, String studentLastName,
+                             String studentPhone, String studentEmail, Integer studentClassId,
+                              Integer studentCurrentMoney, Integer studentTotalMoney) {
+        Integer userId = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT id_user FROM student WHERE id_student=?");
+
+            stmt.setInt(1, studentId);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                userId = resultSet.getInt("id_user");
+            }
+
+            System.out.println(userId + studentId);
+
+            PreparedStatement stmt2 = connection.prepareStatement(
+                    "UPDATE app_user " +
+                            "SET first_name = ?, last_name = ?, phone = ?, email = ?" +
+                            "WHERE id_user = ?");
+
+            stmt2.setString(1, studentFirstName);
+            stmt2.setString(2, studentLastName);
+            stmt2.setString(3, studentPhone);
+            stmt2.setString(4, studentEmail);
+            stmt2.setInt(5, userId);
 
             stmt2.executeUpdate();
+
+
+
+            PreparedStatement stmt3 = connection.prepareStatement(
+                    "UPDATE student " +
+                            "SET id_class = ?, current_money = ?, total_money = ? " +
+                            "WHERE id_user = ?");
+
+            stmt3.setInt(1, studentClassId);
+            stmt3.setInt(2, studentCurrentMoney);
+            stmt3.setInt(3, studentTotalMoney);
+            stmt3.setInt(4, userId);
+
+            stmt3.executeUpdate();
 
 
         } catch (SQLException e) {
