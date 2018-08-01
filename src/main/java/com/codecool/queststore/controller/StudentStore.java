@@ -15,7 +15,6 @@ import java.util.List;
 
 public class StudentStore implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
-        //System.out.println("STUDENT STORE");
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -26,9 +25,6 @@ public class StudentStore implements HttpHandler {
 
             InventoryDAO inventoryDAO = new InventoryDAO();
             List<Artifact> storeInventory = inventoryDAO.getStoreInventory();
-//            System.out.println(storeInventory.get(0).getArtifactPrice());
-//            System.out.println(storeInventory.get(1).getArtifactPrice());
-//            System.out.println(storeInventory.get(2).getArtifactPrice());
 
             model.with("storeInventory", storeInventory);
             model.with("userName", loggedUser.getFirstName());

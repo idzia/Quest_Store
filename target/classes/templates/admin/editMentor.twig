@@ -20,7 +20,7 @@
 
         <div class="info">
             <div class="info-center">
-                <h1>WELCOME ADMIN!</h1>
+                <h1>Hello {{userName}}!</h1>
             </div>
             <div class="info-top">
                 <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
@@ -40,23 +40,74 @@
 
         <div class="content-block">
             <ul class="breadcrumb">
-                <li>-> <a href="mentor">Mentor</a></li>
+                <li>-> <a href="/admin">Mentor</a></li>
                 <li>Edit mentor</li>
             </ul>
             <h1>Edit mentor!</h1>
 
-            <form name="myform" method="post" action="#" onsubmit="return validateform();" >
-
+            <form name="myform" method="post" action="{{mentorId}}" >
 
                 <br/><br/>
-                First name: <input type="text" name="name"><br/>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="name">Mentor's first name*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="name" name="name" value="{{mentor.getFirstName}}" required>
+                        <div id="err-name-fn"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="surname">Mentor's last name*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="surname" name="surname" value="{{mentor.getLastName}}" required>
+                        <div id="err-name-fn"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="phone">Mentor's phone number</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="tel" id="phone" name="phone" value="{{mentor.getPhoneNumber}}" required>
+                        <div id="err-phone-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="email">Mentor's e-mail address*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="email" id="email" name="email" value="{{mentor.getEmail}}" onkeyup="validate()" required>
+                        <div id="err-email-fn"></div>
+                    </div>
+                </div>
+
+                <!--<div class="row">
+                    <div class="col-25">
+                        <label for="class">Mentor's class</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="email" id="email" name="email" value="{{mentor.getClass}}" required>
+
+                        <div id="err-class-fn"></div>
+
+                    </div>
+                </div>-->
+
+
+                <!--First name: <input type="text" name="name"><br/>
                 Last name: <input type="text" name="lastName"><br/>
                 Phone: <input type="text" name="phone"><br/>
                 Email: <input type="text" name="email"><br/>
-                Class: <input type="text" name="class"><br/>
+                Class: <input type="text" name="class"><br/>-->
 
 
-                <input class="button-create-mentor" type="submit" value="Create mentor">
+                <input class="button-create-mentor" type="submit" value="Save">
 
             </form>
         </div>

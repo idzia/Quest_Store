@@ -9,6 +9,7 @@
     
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="../../static/js/validation.js"></script>
+    <script src="../../static/js/modal-script.js"></script>
 </head>
 
 <body>
@@ -40,19 +41,75 @@
         <div class="content-block">
             <ul class="breadcrumb">
                 <li> <a href="mentor">Mentor</a></li>
-                <li>Edit mentor</li>
+                <li>Add mentor</li>
             </ul>
             <h1>Create mentor!</h1>
 
-            <form name="myform" method="post" action="#" onsubmit="return validateform();" >
+            <form action="create_mentor" method="POST" class="input-form" onsubmit="return submitData()">
 
-                First name: <input type="text" name="name"><p id="err-name"></p><br>
-                Last name: <input type="text" name="lastName"><p id="err-lastname"></p><br>
-                Phone: <input type="text" name="phone"><p id="err-phone"></p><br>
-                Email: <input type="text" name="email"><p id="err-email"></p><br>
-                Class: <input type="text" name="class"><p id="err-class"></p><br>
-                <input class="button-create-mentor" type="submit" value="Create mentor">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="name">Mentor's first name*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="name" name="name" placeholder="First name.." required>
+                        <div id="err-name-fn"></div>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-25">
+                        <label for="surname">Mentor's last name*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="surname" name="surname" placeholder="Last name.." required>
+                        <div id="err-surname-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="phone">Mentor's phone number</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone number.." required>
+                        <div id="err-phone-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="email">Mentor's e-mail address*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="email" id="email" name="email" placeholder="Email address.." onkeyup="validate()" required>
+                        <div id="err-email-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="login">Mentor's login</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="login" name="login" placeholder="Mentor's login.." required>
+                        <div id="err-class-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="pass">Mentor's pass</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="pass" name="pass" placeholder="Mentor's pass.." required>
+                        <div id="err-class-fn"></div>
+                    </div>
+                </div>
+
+                <div class="save-changes-button">
+                    <input id="submit-button" type="submit" name="submit" value="Save">
+                </div>
             </form>
         </div>
     </div>

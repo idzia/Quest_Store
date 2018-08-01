@@ -1,5 +1,6 @@
 package com.codecool.queststore.DAO;
 
+import com.codecool.queststore.model.CoolClass;
 import com.codecool.queststore.model.DataBaseConnection;
 
 import java.sql.*;
@@ -101,5 +102,83 @@ public class ClassDAO {
         return classMentorMap;
     }
 
+    public List<CoolClass> getClassList() {
+
+        List<CoolClass> classList = new ArrayList<>();
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM cool_class");
+
+
+            while (resultSet.next()) {
+                Integer classId = resultSet.getInt("id_class");
+                String className = resultSet.getString("class_name");
+
+                CoolClass coolClass = new CoolClass(classId, className);
+                classList.add(coolClass);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return classList;
+    }
+
+    public Integer getClassIdByName(String coolClassName) {
+
+        Integer coolClassId = null;
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM cool_class");
+
+
+            while (resultSet.next()) {
+                 String className = resultSet.getString("class_name");
+
+                if (className.equals(coolClassName)) {
+                    coolClassId = resultSet.getInt("id_class");
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return coolClassId;
+    }
+
+    public void addNewClass(String className, Integer mentorId){
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO cool_class (class_name) " +
+                            "VALUES(?) RETURNING id_class");
+
+            stmt.setString(1, className);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                Integer lastUpdateId = resultSet.getInt(1);
+//                System.out.println(lastUpdateId);
+
+                PreparedStatement stmt2 = connection.prepareStatement(
+                        "INSERT INTO mentor_2_class (id_mentor, id_class) " +
+                                "VALUES(?,?)");
+                stmt2.setInt(1, mentorId);
+                stmt2.setInt(2, lastUpdateId);
+
+                stmt2.executeUpdate();
+            }
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
 
 }

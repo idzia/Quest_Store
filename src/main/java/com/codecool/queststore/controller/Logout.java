@@ -31,6 +31,6 @@ public class Logout implements HttpHandler {
     private void httpRedirectTo(String dest, HttpExchange httpExchange) throws IOException {
         String hostPort = httpExchange.getRequestHeaders().get("host").get(0);
         httpExchange.getResponseHeaders().set("Location", "http://" + hostPort + dest);
-        httpExchange.sendResponseHeaders(301, -1);
+        httpExchange.sendResponseHeaders(302, -1);
     }
 }

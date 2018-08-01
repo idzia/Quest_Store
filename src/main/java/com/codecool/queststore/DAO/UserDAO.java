@@ -182,7 +182,6 @@ public class UserDAO {
         return studentsList;
     }
 
-
     public void addNewStudent(String userFirstName, String userLastName, String userPhone,
                                String userEmail, String userRole, Integer userClassId,
                               String userLogin, String userPassword) {
@@ -201,25 +200,27 @@ public class UserDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             if (resultSet.next()) {
-                Integer userId = resultSet.getInt("id_user");
+                Integer lastUpdateId = resultSet.getInt(1);
+//                System.out.println(lastUpdateId);
 
                 PreparedStatement stmt2 = connection.prepareStatement(
                         "INSERT INTO student (id_user, id_class, current_money, total_money) " +
                                 "VALUES(?,?,?,?)");
-                stmt.setInt(1, userId);
-                stmt.setInt(2, userClassId);
-                stmt.setInt(3, 0);
-                stmt.setInt(4, 0);
+                stmt2.setInt(1, lastUpdateId);
+                stmt2.setInt(2, userClassId);
+                stmt2.setInt(3, 0);
+                stmt2.setInt(4, 0);
 
-                stmt2.executeQuery();
+                stmt2.executeUpdate();
 
                 PreparedStatement stmt3 = connection.prepareStatement(
-                        "INSERT INTO authentication (login, password) " +
-                                "VALUES(?,?)");
-                stmt.setString(1, userLogin);
-                stmt.setString(2, userPassword);
+                        "INSERT INTO authentication (id_user, login, password) " +
+                                "VALUES(?,?,?)");
+                stmt3.setInt(1, lastUpdateId);
+                stmt3.setString(2, userLogin);
+                stmt3.setString(3, userPassword);
 
-                stmt3.executeQuery();
+                stmt3.executeUpdate();
             }
             stmt.close();
 
@@ -227,6 +228,51 @@ public class UserDAO {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+
+    }
+
+    public void addNewMentor(String userFirstName, String userLastName, String userPhone,
+                             String userEmail, String userRole, String userLogin, String userPassword) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO app_user (first_name, last_name, phone, email, role) " +
+                            "VALUES(?,?,?,?,?) RETURNING id_user");
+
+            stmt.setString(1, userFirstName);
+            stmt.setString(2, userLastName);
+            stmt.setString(3, userPhone);
+            stmt.setString(4, userEmail);
+            stmt.setString(5, userRole);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                Integer lastUpdateId = resultSet.getInt(1);
+//                System.out.println(lastUpdateId);
+
+                PreparedStatement stmt2 = connection.prepareStatement(
+                        "INSERT INTO mentor (id_user) " +
+                                "VALUES(?)");
+                stmt2.setInt(1, lastUpdateId);
+
+                stmt2.executeUpdate();
+
+                PreparedStatement stmt3 = connection.prepareStatement(
+                        "INSERT INTO authentication (id_user, login, password) " +
+                                "VALUES(?,?,?)");
+                stmt3.setInt(1, lastUpdateId);
+                stmt3.setString(2, userLogin);
+                stmt3.setString(3, userPassword);
+
+                stmt3.executeUpdate();
+            }
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
 
     }
 
@@ -284,6 +330,95 @@ public class UserDAO {
             System.exit(0);
         }
         return mentorFirstName;
+    }
+
+    public Integer getMentorIdByFullName(String mentorFullName) {
+        Integer mentorId = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT mentor.id_mentor FROM mentor JOIN app_user " +
+                            "ON app_user.id_user = mentor.id_user " +
+                            "WHERE  (app_user.first_name || ' ' || app_user.last_name) = ?");
+
+            stmt.setString(1, mentorFullName);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                mentorId = resultSet.getInt("id_mentor");
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return mentorId;
+    }
+
+    public Mentor getMentorById(Integer mentorId) {
+        Mentor editMentor = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM app_user JOIN mentor " +
+                            "ON app_user.id_user = mentor.id_user " +
+                            "WHERE mentor.id_mentor = ?");
+            stmt.setInt(1, mentorId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                Integer userId = resultSet.getInt("id_user");
+                String userFirstName = resultSet.getString("first_name");
+                String userLastName = resultSet.getString("last_name");
+                String userPhone = resultSet.getString("phone");
+                String userEmail = resultSet.getString("email");
+                String userRole = resultSet.getString("role");
+
+                editMentor = new Mentor(userId, userFirstName, userLastName,
+                        userPhone, userEmail, userRole, mentorId);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return editMentor;
+
+    }
+
+    public void updateMentor(Integer mentorId, String mentorFirstName, String mentorLastName,
+                             String mentorPhone, String mentorEmail) {
+        Integer userId = null;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT id_user FROM mentor WHERE id_mentor=?");
+
+            stmt.setInt(1, mentorId);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                userId = resultSet.getInt("id_user");
+            }
+
+            PreparedStatement stmt2 = connection.prepareStatement(
+                    "UPDATE app_user " +
+                        "SET first_name = ?, last_name = ?, phone = ?, email = ?" +
+                        "WHERE id_user = ?");
+
+            stmt2.setString(1, mentorFirstName);
+            stmt2.setString(2, mentorLastName);
+            stmt2.setString(3, mentorPhone);
+            stmt2.setString(4, mentorEmail);
+            stmt2.setInt(5, userId);
+
+
+            stmt2.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
     }
 
 }

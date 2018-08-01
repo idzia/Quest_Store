@@ -9,6 +9,7 @@
     
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="../../static/js/validation.js"></script>
+    <script src="../../static/js/modal-script.js"></script>
 </head>
 
 <body>
@@ -44,20 +45,38 @@
                 </ul>
                 <h1>Create new class!</h1>
 
-                <form name="myform" method="post" action="#" onsubmit="return validateform();" >
-                    <br/><br/>
-                    Name: <input type="text" name="name"><br/>
-                    Mentor:
+            <form action="create_class" method="POST" class="input-form" >
 
-                    {% for mentor in mentorList %}
-                    <label class="container">{{mentor.getLastName}}
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    {% endfor %}
-                   
-                    <input class="button-create-class" type="submit" value="Create class">
-                </form>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="name">Class name*</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="name" name="name" placeholder="Class name.." required>
+                        <div id="err-name-fn"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="fullName">Mentor's full name*</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="surname" name="fullName">
+                            {% for mentor in mentorList%}
+                            <option>{{mentor.getFirstName}} {{mentor.getLastName}}</option>
+                            {% endfor %}
+
+                        <div id="err-class-fn"></div>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="save-changes-button">
+                    <input id="submit-button" type="submit" name="submit" value="Save">
+                </div>
+            </form>
+
             </div>
         </div>
 

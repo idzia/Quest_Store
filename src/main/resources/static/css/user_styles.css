@@ -304,7 +304,7 @@ button:disabled {
     height: 200px;
 }
 #name, #surname, #email, #phone, #description,
-#class, #coins, #level, #magic, #standard {
+#login, #pass, #class, #coins, #level, #magic, #standard {
     width: 80%;
     padding: 12px;
     border: 1px solid black;

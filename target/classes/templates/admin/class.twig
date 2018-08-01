@@ -43,14 +43,32 @@
                         <tr>
                             <th>Lp</th>
                             <th>Class</th>
-                            <th></th>
                             <th>Mentors</th>
+                            <th></th>
 
                         </tr>
                     </thead>
 
                     <tbody>
                         {%set lp = 0 %}
+                        {% for key, value in classMentorMap %}
+                            <tr>
+                                {%set lp = lp + 1 %}
+                                <td>{{lp}}</td>
+                                <td>{{key}}</td>
+                                <td>
+                                    {% for name in value%}
+                                    {{name}}<br>
+                                    {% endfor %}
+                                </td>
+                                <td><a href="class_edit/{{class.getClassId}}">Edit</a></td>
+                            </tr>
+                        {% endfor %}
+
+
+
+
+                        <!--{%set lp = 0 %}
                         {% for key, value in classMentorMap %}
                             <tr>
                                 {%set lp = lp + 1 %}
@@ -66,13 +84,13 @@
                                 {% endfor %}
 
                             </tr>
-                        {% endfor %}
+                        {% endfor %}-->
+
                     </tbody>
                 </table>
-                <form>
-                    <input class="add-class-button" onclick="window.location.href='addNewClass.html'" type="button" value="Add">
-
-                </form>
+                <div class="save-changes-button">
+                    <a href="/create_class">Add coolclass</a>
+                </div>
             </div>
         </div>
     </div>

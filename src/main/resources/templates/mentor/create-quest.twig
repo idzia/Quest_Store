@@ -24,18 +24,18 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="mentor/mentor-top">students</a></li>
-                <li class="menu-item"><a href="mentor/mentor-quests" class="selected">quests</a></li>
-                <li class="menu-item"><a href="mentor/mentor-artifacts">artifacts</a></li>
+                <li class="menu-item"><a href="/mentor">students</a></li>
+                <li class="menu-item"><a href="/quests" class="selected">quests</a></li>
+                <li class="menu-item"><a href="/artifacts">artifacts</a></li>
             </ul>
         </div>
         <div class="content-block">
             <ul class="breadcrumb">
-                <li>-> <a href="mentor/mentor-quests">Quests</a></li>
+                <li>-> <a href="quests">Quests</a></li>
                 <li>Add quest</li>
             </ul>
             <h1>Add quest</h1>
-            <form class="input-form">
+            <form action="create_quest" method="POST" class="input-form">
                 <div class="row">
                     <div class="col-25">
                         <label for="name">Name of the Quest*</label>
@@ -45,31 +45,31 @@
                         <div id="err-name-fn"></div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-25">
                         <label for="surname">Value of the Quest*</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="surname" name="name" placeholder="Quest's value.." required>
+                        <input type="text" id="surname" name="surname" placeholder="Quest's value.." required>
                         <div id="err-surname-fn"></div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-25">
-                        <label for="standard">Basic</label>
+                        <label for="standard">Type</label>
                     </div>
                     <div class="col-75">
-                        <input type="radio" name="type" id="standard" value="basic" checked>
+                        <select id="standard" name="standard">
+                            <option>basic</option>
+                            <option>magic</option>
+                        <div id="err-class-fn"></div>
+                        </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="magic">Extra</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="radio" name="type" id="magic" value="extra">
-                    </div>
-                </div>
+
+
                 <div class="row">
                     <div class="col-25">
                         <label for="description">Description of the Quest</label>
@@ -78,10 +78,11 @@
                         <textarea id="description" name="description" placeholder="Describe the Quest.."></textarea>
                     </div>
                 </div>
+                <div class="save-changes-button">
+                    <input id="submit-button" type="submit" name="submit" value="Save">
+                </div>
             </form>
-            <form class="save-changes-button" id="button-follow-modal" onsubmit="return false">
-                <input id="submit-button" type="submit" name="submit" value="Save">
-            </form>
+
         </div>
     </div>
 </div>

@@ -24,9 +24,9 @@
     <div class="bar-content-block">
         <div class="bar">
             <ul class="menu">
-                <li class="menu-item"><a href="mentor">students</a></li>
-                <li class="menu-item"><a href="quests" class="selected">quests</a></li>
-                <li class="menu-item"><a href="artifacts">artifacts</a></li>
+                <li class="menu-item"><a href="/mentor">students</a></li>
+                <li class="menu-item"><a href="/quests" class="selected">quests</a></li>
+                <li class="menu-item"><a href="/artifacts">artifacts</a></li>
             </ul>
         </div>
         <div class="content-block">
@@ -48,13 +48,13 @@
                     <td>{{quest.getQuestDescription}}</td>
                     <td>{{quest.getQuestPrice}}</td>
                     <td>{{quest.getQuestCategory}}</td>
-                    <td><a href="create-quest">Edit</a></td>
+                    <td><a href="edit_quest/{{quest.getQuestId}}">Edit</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             <div class="save-changes-button">
-                <a href="mentor/create-quest">Add quest</a>
+                <a href="create_quest">Add quest</a>
             </div>
         </div>
     </div>

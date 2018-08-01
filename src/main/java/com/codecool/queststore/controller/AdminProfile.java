@@ -1,6 +1,5 @@
 package com.codecool.queststore.controller;
 
-import com.codecool.queststore.DAO.ClassDAO;
 import com.codecool.queststore.DAO.UserDAO;
 import com.codecool.queststore.model.*;
 import com.sun.net.httpserver.HttpExchange;
@@ -11,7 +10,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
+
 
 public class AdminProfile implements HttpHandler {
 

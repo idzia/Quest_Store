@@ -1,8 +1,10 @@
 package com.codecool.queststore.controller;
 
+import com.codecool.queststore.DAO.ClassDAO;
 import com.codecool.queststore.DAO.UserDAO;
+import com.codecool.queststore.model.Admin;
+import com.codecool.queststore.model.CoolClass;
 import com.codecool.queststore.model.Session;
-import com.codecool.queststore.model.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -10,80 +12,69 @@ import org.jtwig.JtwigTemplate;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
-import java.net.HttpCookie;
 import java.net.URLDecoder;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.security.MessageDigest;
 
+public class AdminCreateMentor implements HttpHandler {
 
-public class Login implements HttpHandler {
+    private UserDAO userDAO;
 
-    private UserDAO userDao;
+    public AdminCreateMentor() {
+        userDAO = new UserDAO();
 
-    public Login() {
-        userDao = new UserDAO();
     }
-
     public void handle(HttpExchange httpExchange) throws IOException {
 
         String method = httpExchange.getRequestMethod();
-        String response="";
-        boolean error = false;
+        String response = "";
 
-        if (method.equals("GET")) {
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
-            JtwigModel model = JtwigModel.newModel();
-            response = template.render(model);
-        }
+        if (Session.guard(httpExchange, "admin")) {
 
-        if (method.equals("POST")) {
+            Admin loggedUser = (Admin)Session.getLoggedUser(httpExchange);
 
-            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String formData = br.readLine();
 
-            Map inputs = parseFormData(formData);
+            if (method.equals("GET")) {
 
-            String login = inputs.get("login").toString();
-            String pass = inputs.get("pass").toString();
-            String password = hashedPass(pass);
-
-            User loggedUser = userDao.getUserByCredentials(login, password);
-
-            if (loggedUser == null) {
-                error = true;
-
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/addNewMentor.twig");
                 JtwigModel model = JtwigModel.newModel();
-                model.with("error", error);
+
+                model.with("userName", loggedUser.getFirstName());
+                response = template.render(model);
+            }
+
+            if (method.equals("POST")) {
+
+                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                BufferedReader br = new BufferedReader(isr);
+                String formData = br.readLine();
+
+                Map<String, String> inputs = parseFormData(formData);
+
+                String userFirstName = inputs.get("name");
+                String userLastName = inputs.get("surname");
+                String userPhone = inputs.get("phone");
+                String userEmail = inputs.get("email");
+                String userRole = "mentor";
+
+                String userLogin = inputs.get("login");
+                String userPass = inputs.get("pass");
+                String userPassword = hashedPass(userPass);
+
+                userDAO.addNewMentor(userFirstName, userLastName, userPhone,
+                        userEmail, userRole, userLogin, userPassword);
+
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/mentor.twig");
+                JtwigModel model = JtwigModel.newModel();
+
+                model.with("userName", loggedUser.getFirstName());
                 response = template.render(model);
 
-            } else {
-                String sessionId = generateSessionId();
+                httpRedirectTo("/admin", httpExchange);
 
-                HttpCookie cookie = new HttpCookie("sessionId", sessionId);
-                httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
-                Session.data.put(sessionId, loggedUser);
-
-                switch (loggedUser.getRole()) {
-                    case "admin":
-                        httpRedirectTo("/admin", httpExchange);
-                        break;
-                    case "mentor":
-                        httpRedirectTo("/mentor", httpExchange);
-                        break;
-                    case "student":
-                        httpRedirectTo("/student", httpExchange);
-                        break;
-                }
-
-//                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/codecooler.twig");
-//                JtwigModel model = JtwigModel.newModel();
-//                model.with("error", error);
-//                response = template.render(model);
             }
         }
 
@@ -91,6 +82,7 @@ public class Login implements HttpHandler {
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+
     }
 
     private String hashedPass(String pass) {
@@ -131,4 +123,5 @@ public class Login implements HttpHandler {
         httpExchange.getResponseHeaders().set("Location", "http://" + hostPort + dest);
         httpExchange.sendResponseHeaders(302, -1);
     }
+
 }

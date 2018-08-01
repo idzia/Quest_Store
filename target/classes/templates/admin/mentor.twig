@@ -59,14 +59,15 @@
                                     <td>{{mentor.getLastName}}</td>
                                     <td>{{mentor.getEmail}}</td>
                                     <td>{{mentor.getPhoneNumber}}</td>
-                                    <td><a href="mentor_class/{{mentor.getMentorId}}">Show</a></td>
-                                    <td><a href="add_mentor">Edit</a></td>
+
+                                    <td><a href="show_mentor_class/{{mentor.getMentorId}}">Show</a></td>
+                                    <td><a href="edit_mentor/{{mentor.getMentorId}}">Edit</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     <div class="save-changes-button">
-                        <a href="create-mentor">Add mentor</a>
+                        <a href="create_mentor">Add mentor</a>
                     </div>
                 </div>
             </div>
