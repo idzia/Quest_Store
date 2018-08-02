@@ -185,4 +185,31 @@ public class QuestDAO {
         return studentQuestToDo;
     }
 
+    public void approveQuest(Integer studentId, Integer questId, Integer money) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "INSERT INTO student_quest (id_student, id_quest) " +
+                            "VALUES(?,?)");
+            stmt.setInt(1, studentId);
+            stmt.setInt(2, questId);
+
+            stmt.executeUpdate();
+
+            PreparedStatement stmt2 = connection.prepareStatement(
+                    "UPDATE student " +
+                            "SET current_money =  current_money + ?, total_money = total_money + ? " +
+                            "WHERE id_student = ?");
+            stmt2.setInt(1, money);
+            stmt2.setInt(2, money);
+            stmt2.setInt(3, studentId);
+
+            stmt2.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+    }
+
 }

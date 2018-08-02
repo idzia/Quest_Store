@@ -17,7 +17,7 @@
                 <h1>Hello {{userName}}</h1>
             </div>
             <div class="info-top">
-                <a href="login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
+                <a href="/login"><img src="../../static/img/out.png" alt="logout" title="Log out"></a>
             </div>
         </div>
     </header>
@@ -58,8 +58,8 @@
                 <td>{{student.getCurrentMoney}}</td>
                 <td><a href="show_wallet/{{student.getStudentId}}">Show</a></td>
                 <td><a href="edit_student/{{student.getStudentId}}">Edit</a></td>
-                <td><a href="mentor-student-quests">Approve</a></td>
-                <td><a href="mentor-student-artifacts">Approve</a></td>
+                <td><a href="approve_quest/{{student.getStudentId}}">Approve</a></td>
+                <td><a href="mentor-student-artifacts/{{student.getStudentId}}">Approve</a></td>
             </tr>
             {% endfor %}
             

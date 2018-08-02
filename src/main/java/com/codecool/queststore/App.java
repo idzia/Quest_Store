@@ -27,6 +27,7 @@ public class App {
         server.createContext("/quests", new MentorQuests());
         server.createContext("/create_quest", new MentorCreateQuest());
         server.createContext("/edit_quest", new MentorEditQuest());
+        server.createContext("/approve_quest", new MentorApproveQuest());
         server.createContext("/artifacts", new MentorArtifacts());
         server.createContext("/edit_artifact", new MentorEditArtifact());
         server.createContext("/create_artifact", new MentorCreateArtifact());
@@ -41,6 +42,7 @@ public class App {
 
         server.createContext("/static", new Static());
         server.createContext("/logout", new Logout());
+        server.createContext("/confirm", new Confirm());
         server.setExecutor(null); // creates a default executor
 
         // start listening
