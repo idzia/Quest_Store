@@ -18,6 +18,7 @@ public class App {
         server.createContext("/store-buy-one", new StudentStoreOne());
         server.createContext("/transaction_history", new StudentHistory());
         server.createContext("/incubator", new StudentIncubator());
+        server.createContext("/student_quests", new StudentQuests());
 
         server.createContext("/mentor", new MentorProfile());
         server.createContext("/create_student", new MentorCreateStudent());

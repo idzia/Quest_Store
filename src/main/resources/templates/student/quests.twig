@@ -18,11 +18,11 @@
             </div>
             <div class="info-top">
                 <ul class="describe_item">
-                    <li><p id="money">{{money}}</p></li>
+                    <li><p id="money">{{currentMoney}}</p></li>
                     <li><img src="../../static/img/coin.png" alt="coin"></li>
-                    <li><p id="experience">{{totalmoney}}</p></li>
+                    <li><p id="experience">{{totalMoney}}</p></li>
                     <li><img src="../../static/img/progress.png" alt="progress"></li>
-                    <li><a href="loginl"><img src="../../static/img/out.png" alt="logout"></a></li>
+                    <li><a href="/login"><img src="../../static/img/out.png" alt="logout"></a></li>
                 </ul>
             </div>
         </div>
@@ -33,26 +33,51 @@
                 <li class="menu-item"><a href="/student">Inventory</a></li>
                 <li class="menu-item"><a href="/store">Store</a></li>
                 <li class="menu-item"><a href="/incubator">Incubator</a></li>
-                <li class="menu-item"><a href="/quests"  class="selected">Quests</a></li>
+                <li class="menu-item"><a href="/student_quests"  class="selected">Quests</a></li>
                 <li class="menu-item"><a href="/transaction_history">Transaction</a></li>
             </ul>
         </div>
+
         <div class="content-block">
-            <h1>Quests</h1>
+            <h1>Your quests - done</h1>
             <table class="show-mentors mark">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Mark is done</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for quest in QuestList %}
+                {% for quest in studentQuestsDone %}
                 <tr>
-                    <td>{{quest.getName}}</td>
-                    <td>{{quest.getDescription}}</td>
-                    <td>{{quest.getQuantity}}</td>
-                    <td>{{quest.getCategory}}</td>
+                    <td>{{quest.getQuestName}}</td>
+                    <td>{{quest.getQuestDescription}}</td>
+                    <td>{{quest.getQuestCategory}}</td>
+                    <td>{{quest.getQuestPrice}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h1>Your quests - to do</h1>
+            <table class="show-mentors mark">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for quest in studentQuestsToDo %}
+                <tr>
+                    <td>{{quest.getQuestName}}</td>
+                    <td>{{quest.getQuestDescription}}</td>
+                    <td>{{quest.getQuestCategory}}</td>
+                    <td>{{quest.getQuestPrice}}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

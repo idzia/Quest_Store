@@ -140,4 +140,49 @@ public class QuestDAO {
 
     }
 
+    public List<Quest> getStudentQuests(Integer studentId) {
+        List<Quest> studentQuests = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM student_quest " +
+                            "JOIN quest ON quest.id_quest = student_quest.id_quest " +
+                            "WHERE student_quest.id_student = ?");
+
+            stmt.setInt(1, studentId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                Integer questId = resultSet.getInt("id_quest");
+                String questName = resultSet.getString("quest_name");
+                String questDescription = resultSet.getString("description");
+                String questCategory = resultSet.getString("category");
+                Integer questPrice = resultSet.getInt("price");
+
+                Quest quest = new Quest(questId, questName, questDescription, questCategory, questPrice);
+                studentQuests.add(quest);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return studentQuests;
+
+
+    }
+
+    public List<Quest> getStudentQuestsToDo(Integer studentId) {
+        List<Quest> allQuestList = getQuestsList();
+        List<Quest> studentQuestDone = getStudentQuests(studentId);
+        List<Quest> studentQuestToDo = new ArrayList<>();
+
+        for (Quest quest : allQuestList){
+            if (!studentQuestDone.contains(quest)) {
+                studentQuestToDo.add(quest);
+            }
+        }
+        return studentQuestToDo;
+    }
+
 }
