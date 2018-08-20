@@ -1,6 +1,5 @@
 package com.codecool.queststore.DAO;
 
-import com.codecool.queststore.model.Artifact;
 import com.codecool.queststore.model.DataBaseConnection;
 import com.codecool.queststore.model.Quest;
 
@@ -173,17 +172,20 @@ public class QuestDAO {
     }
 
     public List<Quest> getStudentQuestsToDo(Integer studentId) {
-        List<Quest> allQuestList = getQuestsList();
-        List<Quest> studentQuestDone = getStudentQuests(studentId);
-        List<Quest> studentQuestToDo = new ArrayList<>();
+        List<Quest> studentQuestsList = getQuestsList();
+        List<Quest> studentQuestsDone = getStudentQuests(studentId);
+        List<Quest> studentQuestsToDo = new ArrayList<>();
 
-        for (Quest quest : allQuestList){
-            if (!studentQuestDone.contains(quest)) {
-                studentQuestToDo.add(quest);
+        for (Quest quest : studentQuestsList){
+            if (!studentQuestsDone.contains(quest)) {
+                studentQuestsToDo.add(quest);
             }
         }
-        return studentQuestToDo;
+
+        return studentQuestsToDo;
     }
+
+
 
     public void approveQuest(Integer studentId, Integer questId, Integer money) {
         try {

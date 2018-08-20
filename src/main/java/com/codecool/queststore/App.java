@@ -38,6 +38,7 @@ public class App {
         server.createContext("/create_mentor", new AdminCreateMentor());
         server.createContext("/class", new AdminClass());
         server.createContext("/create_class", new AdminCreateClass());
+        server.createContext("/edit_class", new AdminEditClass());
         server.createContext("/level", new AdminLevel());
 
         server.createContext("/static", new Static());

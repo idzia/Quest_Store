@@ -2,7 +2,9 @@ package com.codecool.queststore.controller;
 
 import com.codecool.queststore.DAO.ClassDAO;
 import com.codecool.queststore.DAO.UserDAO;
+import com.codecool.queststore.model.Admin;
 import com.codecool.queststore.model.Mentor;
+import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -27,42 +29,47 @@ public class AdminCreateClass implements HttpHandler {
         String method = httpExchange.getRequestMethod();
         String response = "";
 
+        if (Session.guard(httpExchange, "admin")) {
 
-        if (method.equals("GET")) {
-            List<Mentor> mentorList = userDAO.getMentorsList();
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/addNewClass.twig");
-            JtwigModel model = JtwigModel.newModel();
+            Admin loggedUser = (Admin) Session.getLoggedUser(httpExchange);
 
-            model.with("mentorList", mentorList);
-            response = template.render(model);
-        }
+            if (method.equals("GET")) {
+                List<Mentor> mentorList = userDAO.getMentorsList();
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/addNewClass.twig");
+                JtwigModel model = JtwigModel.newModel();
 
-        if (method.equals("POST")) {
+                model.with("mentorList", mentorList);
+                model.with("userName", loggedUser.getFirstName());
+                response = template.render(model);
+            }
 
-            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String formData = br.readLine();
+            if (method.equals("POST")) {
 
-            Map<String, String> inputs = parseFormData(formData);
+                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                BufferedReader br = new BufferedReader(isr);
+                String formData = br.readLine();
 
-            String coolClassName = inputs.get("name");
-            String userMentorClass = inputs.get("fullName");
-            //Integer userMentorId = userDAO.getMentorIdByName(userMentorClass);
+                Map<String, String> inputs = parseFormData(formData);
 
-            System.out.println(userMentorClass);
+                String coolClassName = inputs.get("name");
+                String userMentorClass = inputs.get("fullName");
+                //Integer userMentorId = userDAO.getMentorIdByName(userMentorClass);
 
-            Integer userMentorId = userDAO.getMentorIdByFullName(userMentorClass);
+                System.out.println(userMentorClass);
 
-            System.out.println(userMentorId);
+                Integer userMentorId = userDAO.getMentorIdByFullName(userMentorClass);
 
-            classDAO.addNewClass(coolClassName, userMentorId);
+                System.out.println(userMentorId);
 
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/addNewClass.twig");
-            JtwigModel model = JtwigModel.newModel();
-            response = template.render(model);
+                classDAO.addNewClass(coolClassName, userMentorId);
 
-            httpRedirectTo("/admin", httpExchange);
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/addNewClass.twig");
+                JtwigModel model = JtwigModel.newModel();
+                response = template.render(model);
 
+                httpRedirectTo("/admin", httpExchange);
+
+            }
         }
 
         httpExchange.sendResponseHeaders(200, response.length());

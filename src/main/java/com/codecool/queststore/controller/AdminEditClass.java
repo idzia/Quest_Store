@@ -4,6 +4,7 @@ import com.codecool.queststore.DAO.ClassDAO;
 
 import com.codecool.queststore.model.Admin;
 
+import com.codecool.queststore.model.CoolClass;
 import com.codecool.queststore.model.Session;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -35,13 +36,14 @@ public class AdminEditClass implements HttpHandler {
                 Integer classId = Integer.valueOf(parsePath(httpExchange)[2]);
 
                 ClassDAO classDAO = new ClassDAO();
+                String className = classDAO.getClassMap().get(classId);
 
                 //Map<String, List<String>> classMentorsMap = classDAO.getClassMentorsMap();
-                String className = classDAO.getClassMap().get(classId);
+                //CoolClass class = classDAO.getClassMentorsMap2().get(classId);
                 List<String> classMentorList = classDAO.getClassMentorsMap().get(className);
 
                 model.with("className", className);
-                model.with("classId", classId);
+//                model.with("classId", classId);
                 model.with("classMentorList", classMentorList);
 
                 model.with("userName", loggedUser.getFirstName());

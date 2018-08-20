@@ -55,4 +55,13 @@ public class Quest {
     public void setQuestPrice(Integer questPrice) {
         this.questPrice = questPrice;
     }
+
+    public boolean equals (Object o) {
+        if (o instanceof Quest) {
+            if (questId.equals(((Quest) o).questId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

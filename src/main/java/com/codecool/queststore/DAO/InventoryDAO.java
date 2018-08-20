@@ -124,7 +124,7 @@ public class InventoryDAO {
                 Integer artifactPrice = resultSet.getInt("price");
 
                 artifactToBuy = new Artifact(artifactId, artifactName,
-                        artifactDescription, artifactCategory, artifactPrice);
+                        artifactDescription, artifactPrice, artifactCategory);
             }
 
         } catch (SQLException e) {

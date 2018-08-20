@@ -28,8 +28,11 @@ public class AdminClass implements HttpHandler {
 
             ClassDAO classDAO = new ClassDAO();
             Map<String, List<String>> classMentorMap = classDAO.getClassMentorsMap();
+            Map<String, Integer> classMap = classDAO.getClassMap2();
+
 
             model.with("classMentorMap", classMentorMap);
+            model.with("classMap", classMap);
             model.with("userName", loggedUser.getFirstName());
         }
 

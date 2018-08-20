@@ -33,49 +33,53 @@ public class MentorCreateStudent implements HttpHandler {
         String method = httpExchange.getRequestMethod();
         String response = "";
 
+        if (Session.guard(httpExchange, "mentor")) {
 
-        if (method.equals("GET")) {
-            List<CoolClass> classList = classDAO.getClassList();
+            Mentor loggedUser = (Mentor) Session.getLoggedUser(httpExchange);
 
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/create-student.twig");
-            JtwigModel model = JtwigModel.newModel();
+            if (method.equals("GET")) {
+                List<CoolClass> classList = classDAO.getClassList();
 
-            model.with("classList", classList);
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/create-student.twig");
+                JtwigModel model = JtwigModel.newModel();
 
-            response = template.render(model);
-        }
+                model.with("classList", classList);
 
-        if (method.equals("POST")) {
+                response = template.render(model);
+            }
 
-            InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String formData = br.readLine();
+            if (method.equals("POST")) {
 
-            Map<String, String> inputs = parseFormData(formData);
+                InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+                BufferedReader br = new BufferedReader(isr);
+                String formData = br.readLine();
 
-            String userFirstName = inputs.get("name");
-            String userLastName = inputs.get("surname");
-            String userPhone = inputs.get("phone");
-            String userEmail = inputs.get("email");
-            String userRole = "student";
-            String userClass = inputs.get("class");
-            Integer userClassId = classDAO.getClassIdByName(userClass);
-            System.out.println(userClassId);
+                Map<String, String> inputs = parseFormData(formData);
 
-            String userLogin = inputs.get("login");
-            String userPass = inputs.get("pass");
-            String userPassword = hashedPass(userPass);
+                String userFirstName = inputs.get("name");
+                String userLastName = inputs.get("surname");
+                String userPhone = inputs.get("phone");
+                String userEmail = inputs.get("email");
+                String userRole = "student";
+                String userClass = inputs.get("class");
+                Integer userClassId = classDAO.getClassIdByName(userClass);
+                System.out.println(userClassId);
 
-            userDAO.addNewStudent(userFirstName, userLastName, userPhone,
-                    userEmail, userRole, userClassId,
-                    userLogin, userPassword);
+                String userLogin = inputs.get("login");
+                String userPass = inputs.get("pass");
+                String userPassword = hashedPass(userPass);
 
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
-            JtwigModel model = JtwigModel.newModel();
-            response = template.render(model);
+                userDAO.addNewStudent(userFirstName, userLastName, userPhone,
+                        userEmail, userRole, userClassId,
+                        userLogin, userPassword);
 
-            httpRedirectTo("/mentor", httpExchange);
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor-top.twig");
+                JtwigModel model = JtwigModel.newModel();
+                response = template.render(model);
 
+                httpRedirectTo("/mentor", httpExchange);
+
+            }
         }
 
         httpExchange.sendResponseHeaders(200, response.length());

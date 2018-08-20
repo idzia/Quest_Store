@@ -50,18 +50,21 @@
                     </thead>
 
                     <tbody>
-                        {%set lp = 0 %}
+                        {% set lp = 0 %}
+                        {% set classId = 0 %}
                         {% for key, value in classMentorMap %}
                             <tr>
-                                {%set lp = lp + 1 %}
+                                {% set lp = lp + 1 %}
                                 <td>{{lp}}</td>
                                 <td>{{key}}</td>
+
                                 <td>
-                                    {% for name in value%}
+                                    {% for name in value %}
                                     {{name}}<br>
                                     {% endfor %}
                                 </td>
-                                <td><a href="class_edit/{{class.getClassId}}">Edit</a></td>
+
+                                <td><a href="edit_class/{{classMap.get(key)}}">Edit</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

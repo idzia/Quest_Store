@@ -40,6 +40,29 @@ public class ClassDAO {
         return classMap;
     }
 
+    public Map<String, Integer> getClassMap2() {
+        Map<String, Integer> classMap = new HashMap<>();
+
+        try {
+            Statement stmt = connection.createStatement();
+
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM cool_class");
+
+
+            while (resultSet.next()) {
+                Integer classId = resultSet.getInt("id_class");
+                String className = resultSet.getString("class_name");
+
+                classMap.put(className, classId);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return classMap;
+    }
+
     public List<String> getClassListByMentorId(Integer mentorId) {
 
         List<String> classList = new ArrayList<>();

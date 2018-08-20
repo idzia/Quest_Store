@@ -1,4 +1,4 @@
-function calculetePrice() {
+function calculatePrice() {
     var quantityStudents = document.getElementById('qS').value;
     var price = document.getElementById('price').value;
     var buyButton = document.getElementById('buy');
@@ -14,10 +14,16 @@ function calculetePrice() {
 }
 
 function refresh() {
-    document.getElementById('topay').innerHTML = calculetePrice();
+    document.getElementById('topay').innerHTML = calculatePrice();
 }
 
 function goBack() {
     alert("Congratulations! You bought artifact");
     window.history.back();
+}
+
+
+function refresh2() {
+    var price = document.getElementById('price').value;
+    document.getElementById('topay').innerHTML = price;
 }
