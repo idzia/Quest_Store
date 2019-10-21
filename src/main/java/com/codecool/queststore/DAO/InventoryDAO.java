@@ -113,6 +113,7 @@ public class InventoryDAO {
             PreparedStatement stmt = connection.prepareStatement(
                     "SELECT * FROM artifact " +
                             "WHERE id_artifact = ?");
+
             stmt.setInt(1, artifactId);
             ResultSet resultSet = stmt.executeQuery();
 
